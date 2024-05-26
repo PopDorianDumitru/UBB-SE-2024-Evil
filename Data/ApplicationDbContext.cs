@@ -26,16 +26,18 @@ namespace UBB_SE_2024_Evil.Data
                 card.Property(c => c.Cvv).IsRequired();
             });
 
-            modelBuilder.Entity<GameState>(game =>
+            modelBuilder.Entity<GameSave>(gameSave =>
             {
-                game.Property(g => g.Id).ValueGeneratedOnAdd();
-                game.HasKey(g => g.Id);
-                game.Property(g => g.Level).IsRequired();
-                game.Property(g => g.Name).IsRequired();
-                game.Property(g => g.PlayerHealth).IsRequired();
+                gameSave.Property(g => g.Id).ValueGeneratedOnAdd();
+                gameSave.HasKey(g => g.Id);
+                gameSave.Property(g => g.Level).IsRequired();
+                gameSave.Property(g => g.Name).IsRequired();
+                gameSave.HasIndex(g => g.Name).IsUnique();
+                gameSave.Property(g => g.PlayerHealth).IsRequired();
             });
         }
 
         public DbSet<UBB_SE_2024_Evil.Models.CreditCard> CreditCard { get; set; } = default!;
+        public DbSet<UBB_SE_2024_Evil.Models.Spartacus.GameSave> GameSave { get; set; } = default!;
     }
 }

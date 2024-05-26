@@ -3,62 +3,41 @@
     public class Enemy
     {
         public string Name { get; set; }
-
         public int Health { get; set; }
-
-        public int Armor { get; set; }
-
-        public int Damage { get; set; }
-
         public int Block { get; set; }
+        public int MaxEnergy { get; set; }
+        public List<Move> Moves { get; set; }
+        public int CurrentMoveIndex { get; set; }
 
-        public int Heal { get; set; }
-
-        public Enemy(string name, int health, int damage, int block)
+        public Enemy(string name, int health, int maxEnergy, List<Move> moves)
         {
             Name = name;
             Health = health;
-            Damage = damage;
-            Block = block;
+            Block = 0;
+            MaxEnergy = maxEnergy;
+            Moves = moves;
+            CurrentMoveIndex = 0;
         }
 
-        public int DoAttack()
+        public Move GetCurrentMove()
         {
-            Random random = new Random();
-            int randomDamage = random.Next(0, 5);
+            Move enemyMove = Moves[CurrentMoveIndex];
+            NextMove();
+            return enemyMove;
+        }
 
-            if (random.Next(0, 2) == 0)
+        private void NextMove()
+        {
+            CurrentMoveIndex++;
+            if (CurrentMoveIndex >= Moves.Count)
             {
-                randomDamage = -randomDamage;
+                CurrentMoveIndex = 0;
             }
-
-            return Damage + randomDamage;
-        }
-
-        public void DoBlock()
-        {
-            Random random = new Random();
-            int randomBlock = random.Next(0, 5);
-
-            if (random.Next(0, 2) == 0)
-            {
-                randomBlock = -randomBlock;
-            }
-
-            Armor = Block + randomBlock;
-        }
-
-        public void DoHeal()
-        {
-            Random random = new Random();
-            int randomHeal = random.Next(0, 5);
-
-            Health += Heal + randomHeal;
         }
 
         public void TakeDamage(int damage)
         {
-            Health -= damage;
+            Health -= Block > 0 ? Math.Max(0, damage - Block) : damage;
         }
     }
 }
