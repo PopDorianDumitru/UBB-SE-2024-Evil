@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using UBB_SE_2024_Evil.Data;
 using UBB_SE_2024_Evil.Models.Spartacus;
 
 namespace UBB_SE_2024_Evil.Controllers
 {
+    [Authorize]
     public class GameController : Controller
     {
         private readonly ApplicationDbContext _context;
