@@ -12,7 +12,7 @@ namespace All_Things_Evil.Repos
 {
     public class CreditCardProxyRepository : ICreditCardProxyRepository
     {
-        private const string SERVER_URL = "https://localhost:7224";
+        private const string SERVER_URL = "http://localhost:5050";
 
         public CreditCardProxyRepository()
         {
