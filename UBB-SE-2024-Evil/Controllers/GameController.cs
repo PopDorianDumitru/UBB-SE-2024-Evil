@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using UBB_SE_2024_Evil.Data;
 using UBB_SE_2024_Evil.Models.Spartacus;
+using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace UBB_SE_2024_Evil.Controllers
 {
@@ -10,20 +12,29 @@ namespace UBB_SE_2024_Evil.Controllers
     public class GameController : Controller
     {
         private readonly ApplicationDbContext _context;
-        Game Game { get; set; }
 
         public GameController(ApplicationDbContext context)
-        {
+        { 
             _context = context;
         }
+
+		Game Game { get; set; }
+
+        //public GameController(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
 
         // GET: Game
         // Load saved game page
         // Allows the user to select a saved game to load or to create a new game
         public IActionResult Index()
         {
-            List<GameSave> gameSaves = _context.GameSave.ToList();
+			List<GameSave> gameSaves = _context.GameSave.ToList();
+	
+            //return View(saves);
             return View(gameSaves);
+            //return View();
         }
 
         // GET: Game/GamePage
@@ -53,14 +64,32 @@ namespace UBB_SE_2024_Evil.Controllers
             return View();
         }
 
+        public IActionResult NewRun() {
+            return View();
+        }
+
+        public IActionResult DuplicateAdded()
+        {
+            return View();
+        }
+
         // POST: Game/LoadSave
         // Load save endpoint
         // Loads a saved game and redirects to the main game page
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult LoadSave(GameSave gameSave)
+        public IActionResult LoadSave(int gameSaveId)
         {
-            Game = new Game(gameSave);
+            if (gameSaveId <= 0)
+            {
+                // TODO: Handle error
+                return RedirectToAction(nameof(Index));
+            }
+
+            GameSave gameSave = _context.GameSave.FirstOrDefault(gs => gs.Id == gameSaveId);
+
+            //TODO
+            //Game = new Game(gameSave);
             return RedirectToAction(nameof(GamePage));
         }
 
@@ -76,14 +105,20 @@ namespace UBB_SE_2024_Evil.Controllers
                 // TODO: Handle error
                 return RedirectToAction(nameof(Index));
             }
+            if (_context.GameSave.FirstOrDefault(g => g.Name == runName) != null){
+                ModelState.AddModelError("runName", "A game save with this name already exists.");
+                return RedirectToAction(nameof(DuplicateAdded));
+            }
 
             GameSave gameSave = new GameSave(runName);
+
             _context.GameSave.Add(gameSave);
             await _context.SaveChangesAsync();
 
             // Get the game save from the database to ensure that the ID is set
             gameSave = _context.GameSave.FirstOrDefault(g => g.Name == runName);
-            Game = new Game(gameSave);
+            //Game = new Game(gameSave);
+
 
             return RedirectToAction(nameof(GamePage));
         }
