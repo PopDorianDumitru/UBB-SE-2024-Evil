@@ -1,39 +1,47 @@
 ﻿@{
     ViewData["Title"] = "Saves";
 }
+<div class="corp">
+<h1 class="h1">New Run</h1>
 
-<h1>New Run</h1>
-
-<form asp-action="NewSave" method="post" class="new-run-form">
+<form asp-action="NewSave" method="post" class="save-form">
     <div class="form-group">
         <label for="runName">Name:</label>
        
         <input type="text" id="runName" name="runName" class="form-control" required />
     </div>
-    <button type="submit" class="btn btn-primary">Add New Game</button>
+    <button type="submit" class="btn btn-warning">Add New Game</button>
 </form>
 
-<a asp-area="" asp-controller="Game" asp-action="Index" class="btn btn-secondary back-button">Back</a>
-
+<a asp-area="" asp-controller="Game" asp-action="Index" class="btn btn-warning btn1">Back</a>
+</div>
 <style>
-    body {
+    .corp {
         font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        color: #333;
-        padding: 20px;
+        height: 700px;
+        color: black;
+        padding: 100px 20px 20px 20px;
+        background-size: cover;
+        background-image: url(https://t4.ftcdn.net/jpg/06/01/99/23/360_F_601992337_tu6VvVhfGBDpiSznmZpBq1u0kOgOkexY.jpg);
     }
 
-    h1 {
+    .buttonClass {
+        border-radius: 15px;
+        background-color: rgb(253,201,110);
+    }
+
+    .h1 {
         font-size: 2em;
         margin-bottom: 20px;
         text-align: center;
     }
 
-    .new-run-form {
-        max-width: 400px;
+    .save-form {
+        padding-top: 100px;
+        max-width: 500px;
         margin: 0 auto;
         padding: 20px;
-        background-color: #ffffff;
+        background-color: rgba(255,255,255, 0.5);
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
@@ -60,6 +68,11 @@
         cursor: pointer;
     }
 
+    .btn1 {
+        width: 40%;
+        margin-left: 30%;
+    }
+
     .btn-primary {
         background-color: #007bff;
         border: none;
@@ -83,8 +96,8 @@
             background-color: #5a6268;
         }
 
-    .back-button {
+    .new-run-button {
         display: block;
-        max-width: 400px;
+        max-width: 500px;
     }
 </style>

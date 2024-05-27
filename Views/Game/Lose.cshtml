@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "You lost!";
+    ViewData["Title"] = "You won!";
 }
 
 <!DOCTYPE html>
@@ -10,25 +10,57 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha512-6X1+tmOBP3S1e0K2yGL5qxmbFwFrTlYSwLiYefXqKw1Vr5pp/7tjcYpQx7zL4qIcpl73SOK3hQpGbXs/bETaGw==" crossorigin="anonymous" />
     <style>
-        body {
+        .corp {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-image: url(https://t4.ftcdn.net/jpg/06/01/99/23/360_F_601992337_tu6VvVhfGBDpiSznmZpBq1u0kOgOkexY.jpg);
+            background-size: cover;
             color: #333;
             padding: 20px;
+            width: 90%;
+            height: 700px;
+            align-self: center;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
         }
 
-        h1 {
+        .buttonClass {
+            border-radius: 15px;
+            background-color: rgb(253,201,110);
+        }
+
+        .menu-container {
+            padding-top: 100px;
+            max-width: 500px;
+            margin-top: 100px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255,255,255, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .h1 {
             font-size: 2em;
             margin-bottom: 20px;
             text-align: center;
         }
 
-        p {
+        .par {
             font-size: 1.2em;
             text-align: center;
         }
 
-        a {
+        .links {
             display: block;
             margin-top: 20px;
             text-align: center;
@@ -37,16 +69,16 @@
             transition: color 0.3s ease;
         }
 
-            a:hover {
+            .links:hover {
                 color: #0056b3;
             }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>@ViewData["Title"]</h1>
-        <p>Too bad! You perished along the way!</p>
-        <a asp-action="Index">Back to menu</a>
+<div class="corp">
+    <div class="menu-container">
+        <h1 class="h1">@ViewData["Title"]</h1>
+        <p class="par">I'm sorry! You lost, good luck next time😫!</p>
+        <a class="links" asp-action="Index"><button class="btn btn-warning">Back</button></a>
     </div>
-</body>
+</div>
 </html>
