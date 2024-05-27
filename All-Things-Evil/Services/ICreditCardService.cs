@@ -1,6 +1,6 @@
 ﻿namespace All_Things_Evil.Controllers
 {
-    internal interface ICreditCardService
+    public interface ICreditCardService
     {
         void SaveCard(string holderName, string creditCardNumber, string expirationDate, string cvv);
     }

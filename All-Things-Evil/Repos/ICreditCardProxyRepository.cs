@@ -2,7 +2,7 @@
 
 namespace All_Things_Evil.Repos
 {
-    internal interface ICreditCardProxyRepository
+    public interface ICreditCardProxyRepository
     {
         void SaveCreditCard(CreditCard card);
     }

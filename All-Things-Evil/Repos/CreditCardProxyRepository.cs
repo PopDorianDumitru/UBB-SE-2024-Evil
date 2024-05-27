@@ -10,7 +10,7 @@ using UBB_SE_2024_Evil.Models;
 
 namespace All_Things_Evil.Repos
 {
-    internal class CreditCardProxyRepository : ICreditCardProxyRepository
+    public class CreditCardProxyRepository : ICreditCardProxyRepository
     {
         private const string SERVER_URL = "https://localhost:7224";
 
