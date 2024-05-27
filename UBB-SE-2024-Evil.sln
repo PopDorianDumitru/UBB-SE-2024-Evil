@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UBB-SE-2024-Evil", "UBB-SE-2024-Evil.csproj", "{42FF0B03-5567-4596-8F78-7D714DD118D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweetStealing", "..\SweetStealing\SweetStealing.csproj", "{6066D5D2-0DBD-4858-9FD3-4DAA47C17AB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "All-Things-Evil", "..\All-Things-Evil\All-Things-Evil.csproj", "{DF5EB059-B669-4E1A-9935-A02726EF390D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{42FF0B03-5567-4596-8F78-7D714DD118D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42FF0B03-5567-4596-8F78-7D714DD118D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42FF0B03-5567-4596-8F78-7D714DD118D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6066D5D2-0DBD-4858-9FD3-4DAA47C17AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6066D5D2-0DBD-4858-9FD3-4DAA47C17AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6066D5D2-0DBD-4858-9FD3-4DAA47C17AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6066D5D2-0DBD-4858-9FD3-4DAA47C17AB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF5EB059-B669-4E1A-9935-A02726EF390D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5EB059-B669-4E1A-9935-A02726EF390D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5EB059-B669-4E1A-9935-A02726EF390D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5EB059-B669-4E1A-9935-A02726EF390D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
