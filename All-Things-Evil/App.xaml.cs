@@ -1,6 +1,13 @@
-﻿using System.Configuration;
+﻿using All_Things_Evil.Controllers;
+using All_Things_Evil.Repos;
+using All_Things_Evil.Validators;
+using All_Things_Evil.ViewModels;
+using All_Things_Evil.Views.WindowFactory;
+using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
 using System.Data;
 using System.Windows;
+using UBB_SE_2024_Evil.Controllers;
 
 namespace All_Things_Evil
 {
@@ -9,6 +16,33 @@ namespace All_Things_Evil
     /// </summary>
     public partial class App : Application
     {
+        private readonly ServiceProvider serviceProvider;
+
+        public App()
+        {
+            ServiceCollection services = new ServiceCollection();
+            ConfigureServices(services);
+            this.serviceProvider = services.BuildServiceProvider();
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<ICreditCardService, CreditCardService>();
+            services.AddSingleton<ICreditCardValidator, CreditCardValidator>();
+            services.AddSingleton<IWindowFactory, WindowFactory>();
+            services.AddTransient<IScamBotsViewModel, ScamBotsViewModel>();
+            services.AddSingleton<ICreditCardProxyRepository, CreditCardProxyRepository>();
+            services.AddSingleton<ISubscriptionServiceViewModel, SubscriptionServiceViewModel>();
+            services.AddSingleton<ISweetStealingViewModel, SweetStealingViewModel>();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            MainWindow window = new MainWindow(serviceProvider.GetRequiredService<IWindowFactory>());
+            window.Show();
+        }
     }
 
 }

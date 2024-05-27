@@ -10,7 +10,7 @@ using UBB_SE_2024_Evil.Models;
 
 namespace All_Things_Evil.Controllers
 {
-    internal class CreditCardService : ICreditCardService
+    public class CreditCardService : ICreditCardService
     {
         ICreditCardProxyRepository creditCardProxyRepo;
         public CreditCardService()

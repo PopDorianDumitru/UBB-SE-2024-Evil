@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using All_Things_Evil.Views.WindowFactory;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,6 +17,15 @@ namespace All_Things_Evil
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IWindowFactory windowFactory;
+
+        public MainWindow(IWindowFactory windowFactory)
+        {
+            this.windowFactory = windowFactory;
+            var sweetStealingView = windowFactory.CreateSweetStealingView();
+            InitializeComponent();
+            MainGrid.Children.Add(sweetStealingView);
+        }
         public MainWindow()
         {
             InitializeComponent();
