@@ -8,3 +8,25 @@
 
 <h1>Index</h1>
 
+<select id="gameSavesDropdown">
+    <option value="" disabled selected>Select a game save</option>
+    @foreach (var save in Model)
+    {
+        <option value="@save.Id">@save.Name - Level: @save.Level %</option>
+    }
+</select>
+
+<a asp-area="" asp-controller="Game" asp-action="NewRun"><button>New Run</button></a>
+
+
+<button> RUN</button>
+
+<style>
+    #gameSavesDropdown {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+</style>

@@ -10,15 +10,25 @@ namespace UBB_SE_2024_Evil.Controllers
     public class GameController : Controller
     {
         private readonly ApplicationDbContext _context;
-        Game Game { get; set; }
+
+
+		Game Game { get; set; }
 
         // GET: Game
         // Load saved game page
         // Allows the user to select a saved game to load or to create a new game
         public IActionResult Index()
         {
-            List<GameSave> gameSaves = _context.GameSave.ToList();
-            return View(gameSaves);
+			//List<GameSave> gameSaves = _context.GameSave.ToList();
+		    List<GameSave> saves = new List<GameSave>();
+
+		    saves.Add(new GameSave("Mama"));
+            saves.Add(new GameSave("Tata"));
+            saves.Add(new GameSave("Pisica"));
+            saves.Add(new GameSave("Purcelu"));
+            return View(saves);
+            //return View(gameSaves);
+            //return View();
         }
 
         // GET: Game/GamePage
@@ -45,6 +55,10 @@ namespace UBB_SE_2024_Evil.Controllers
         // Allows the user to return to the main menu
         public IActionResult Lose()
         {
+            return View();
+        }
+
+        public IActionResult NewRun() {
             return View();
         }
 
@@ -80,7 +94,8 @@ namespace UBB_SE_2024_Evil.Controllers
             gameSave = _context.GameSave.FirstOrDefault(g => g.Name == runName);
             Game = new Game(gameSave);
 
-            return RedirectToAction(nameof(GamePage));
+
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Game/SaveGame
