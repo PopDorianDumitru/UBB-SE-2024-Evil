@@ -2,9 +2,73 @@
     ViewData["Title"] = "You won!";
 }
 
-<h1>Win</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha512-6X1+tmOBP3S1e0K2yGL5qxmbFwFrTlYSwLiYefXqKw1Vr5pp/7tjcYpQx7zL4qIcpl73SOK3hQpGbXs/bETaGw==" crossorigin="anonymous" />
+    <style>
+        .corp {
+            font-family: Arial, sans-serif;
+            background-image: url(https://t4.ftcdn.net/jpg/06/01/99/23/360_F_601992337_tu6VvVhfGBDpiSznmZpBq1u0kOgOkexY.jpg);
+            background-size: cover;
+            color: #333;
+			padding: 20px;
+			width: 90%;
+            height: 750px;
+            
+            align-self: center;
 
-<p>Congratulations! You won the game!</p>
+            display: flex;
+            align-items:flex-start;
+            justify-content: center;
+        }
 
-<a asp-action="Index">Back to menu</a>
-<h1>You Win</h1>
+        button {
+            border-radius:15px;
+            background-color: rgb(253,201,110);
+
+        }
+
+        .menu-container {
+            background-color: rgba(197,106,38, 0.75);
+            width: 30%;
+            border-radius: 15px;
+            padding: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .links {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .links:hover {
+                color: #0056b3;
+            }
+    </style>
+</head>
+<div class="corp">
+    <div class="menu-container">
+        <h1>@ViewData["Title"]</h1>
+        <p>Congratulations! You won the game!</p>
+		<a class="links" asp-action="Index"><button>Back</button></a>
+    </div>
+</div>
+</html>

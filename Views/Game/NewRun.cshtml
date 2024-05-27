@@ -1,15 +1,90 @@
 ﻿@{
-	ViewData["Title"] = "Saves";
+    ViewData["Title"] = "Saves";
 }
 
-<h1> New Run</h1>
+<h1>New Run</h1>
 
-<form asp-action="NewSave" method="post"> 
-	<label>Name:</label>
-	<input type="text" name="runName" />
-
-	<button type="submit">Run New Game</button>
+<form asp-action="NewSave" method="post" class="new-run-form">
+    <div class="form-group">
+        <label for="runName">Name:</label>
+       
+        <input type="text" id="runName" name="runName" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Add New Game</button>
 </form>
 
-<a asp-area="" asp-controller="Game" asp-action="Index"><button>Back</button></a>
+<a asp-area="" asp-controller="Game" asp-action="Index" class="btn btn-secondary back-button">Back</a>
 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .new-run-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+        text-align: center;
+        display: block;
+        margin: 20px auto;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .back-button {
+        display: block;
+        max-width: 400px;
+    }
+</style>

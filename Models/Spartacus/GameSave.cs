@@ -21,5 +21,17 @@
             PlayerHealth = STARTING_HEALTH;
             PlayerEnergy = 30;
         }
+
+        public GameSave(int id, int level, string name, int playerHealth, int playerEnergy)
+        {
+            Id = id;
+            Level = level;
+            Name = name;
+            PlayerHealth = playerHealth;
+            PlayerEnergy = playerEnergy;
+        }
+
+        public GameSave(int id)
+        { Id = id; }
     }
 }

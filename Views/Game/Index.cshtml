@@ -3,30 +3,99 @@
 @{
     ViewData["Title"] = "Saves";
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/Spartacus/Index.js"></script>
 
-<script href="~/Scripts/Spartacus/Index.js"></script>
+<h1>Game Saves</h1>
 
-<h1>Index</h1>
+<form asp-action="LoadSave" method="post" class="save-form">
+    <div class="form-group">
+        <label for="gameSavesDropdown">Select a game save:</label>
+        <select id="gameSavesDropdown" name="gameSaveId" class="form-control">
+            <option disabled selected>No Game Selected</option>
+            @foreach (var save in Model)
+            {
+                <option value="@save.Id">@save.Name - Level: @save.Level </option>
+            }
+        </select>
+    </div>
 
-<select id="gameSavesDropdown">
-    <option value="" disabled selected>Select a game save</option>
-    @foreach (var save in Model)
-    {
-        <option value="@save.Id">@save.Name - Level: @save.Level %</option>
-    }
-</select>
 
-<a asp-area="" asp-controller="Game" asp-action="NewRun"><button>New Run</button></a>
+    <button type="submit" id="runButton" class="btn btn-primary">RUN</button>
+</form>
 
-
-<button> RUN</button>
+<a asp-area="" asp-controller="Game" asp-action="NewRun" class="btn btn-secondary new-run-button">New Run</a>
 
 <style>
-    #gameSavesDropdown {
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .save-form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
         width: 100%;
         padding: 10px;
         margin: 10px 0;
         border-radius: 5px;
         border: 1px solid #ccc;
+        font-size: 1em;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+        text-align: center;
+        display: block;
+        margin: 20px auto;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .new-run-button {
+        display: block;
+        max-width: 500px;
     }
 </style>

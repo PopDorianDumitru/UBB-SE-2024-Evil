@@ -2,9 +2,51 @@
     ViewData["Title"] = "You lost!";
 }
 
-<h1>Lose</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha512-6X1+tmOBP3S1e0K2yGL5qxmbFwFrTlYSwLiYefXqKw1Vr5pp/7tjcYpQx7zL4qIcpl73SOK3hQpGbXs/bETaGw==" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
 
-<p>Too bad! You perished along the way!</p>
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-<a asp-action="Index">Back to menu</a>
+        p {
+            font-size: 1.2em;
+            text-align: center;
+        }
 
+        a {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            a:hover {
+                color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <p>Too bad! You perished along the way!</p>
+        <a asp-action="Index">Back to menu</a>
+    </div>
+</body>
+</html>
