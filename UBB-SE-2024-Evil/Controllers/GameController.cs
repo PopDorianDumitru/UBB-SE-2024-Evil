@@ -12,6 +12,11 @@ namespace UBB_SE_2024_Evil.Controllers
         private readonly ApplicationDbContext _context;
         Game Game { get; set; }
 
+        public GameController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         // GET: Game
         // Load saved game page
         // Allows the user to select a saved game to load or to create a new game
