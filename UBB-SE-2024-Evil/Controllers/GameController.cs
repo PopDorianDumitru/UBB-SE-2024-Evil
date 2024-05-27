@@ -20,10 +20,10 @@ namespace UBB_SE_2024_Evil.Controllers
 
 		Game Game { get; set; }
 
-        public GameController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        //public GameController(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
 
         // GET: Game
         // Load saved game page
