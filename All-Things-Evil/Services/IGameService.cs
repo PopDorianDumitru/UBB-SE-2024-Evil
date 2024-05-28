@@ -11,7 +11,7 @@ namespace All_Things_Evil.Services
         GameSave GetGameSave();
         void GetGameSaves(int userId);
         void LoadGame(GameSave gameSave);
-        void LoadGame(string id);
+        void LoadGame(int id);
         bool MoveToNextLevel();
         void ResetGame();
         void SaveGame();

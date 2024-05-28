@@ -38,7 +38,7 @@ namespace All_Things_Evil.Services
         {
             game = new Game(gameSave);
         }
-        public async void LoadGame(string id)
+        public async void LoadGame(int id)
         {
             Task<GameSave> gameSaveTask = gameProxyRepository.LoadSave(id);
             GameSave gameSave = await gameSaveTask;
