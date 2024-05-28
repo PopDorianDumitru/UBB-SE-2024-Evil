@@ -36,7 +36,7 @@ namespace All_Things_Evil.Views
                 var subscriptionWindow = sweetStealingViewModel.CreateSubscriptionWindow();
                 MainContentControl.Content = subscriptionWindow;
             }
-            catch (System.Exception ex)
+            catch (System.Exception exception)
             {
             }
         }
@@ -50,7 +50,7 @@ namespace All_Things_Evil.Views
                 var scamBotsWindow = sweetStealingViewModel.CreateScamBotsWindow();
                 MainContentControl.Content = scamBotsWindow;
             }
-            catch (System.Exception ex)
+            catch (System.Exception exception)
             {
             }
         }
@@ -62,7 +62,7 @@ namespace All_Things_Evil.Views
                 var fightingGameWindow = sweetStealingViewModel.CreateFightingGameWindow();
                 MainContentControl.Content = fightingGameWindow;
             }
-            catch (System.Exception ex)
+            catch (System.Exception exception)
             {
             }
         }
