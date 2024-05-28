@@ -8,30 +8,28 @@ using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace UBB_SE_2024_Evil.Controllers
 {
+    public class GameHolder
+    {
+        public static Game Game { get; set; }
+    }
+
     [Authorize]
     public class GameController : Controller
     {
         private readonly ApplicationDbContext _context;
 
         public GameController(ApplicationDbContext context)
-        { 
+        {
             _context = context;
         }
-
-		Game Game { get; set; }
-
-        //public GameController(ApplicationDbContext context)
-        //{
-        //    _context = context;
-        //}
 
         // GET: Game
         // Load saved game page
         // Allows the user to select a saved game to load or to create a new game
         public IActionResult Index()
         {
-			List<GameSave> gameSaves = _context.GameSave.ToList();
-	
+            List<GameSave> gameSaves = _context.GameSave.ToList();
+
             //return View(saves);
             return View(gameSaves);
             //return View();
@@ -43,7 +41,8 @@ namespace UBB_SE_2024_Evil.Controllers
         // Also allows the user to save the run
         public IActionResult GamePage()
         {
-            return View(Game);
+            Game aux = GameHolder.Game;
+            return View(GameHolder.Game);
         }
 
         // GET: Game/Win
@@ -64,7 +63,8 @@ namespace UBB_SE_2024_Evil.Controllers
             return View();
         }
 
-        public IActionResult NewRun() {
+        public IActionResult NewRun()
+        {
             return View();
         }
 
@@ -88,8 +88,8 @@ namespace UBB_SE_2024_Evil.Controllers
 
             GameSave gameSave = _context.GameSave.FirstOrDefault(gs => gs.Id == gameSaveId);
 
-            //TODO
-            //Game = new Game(gameSave);
+            GameHolder.Game = new Game(gameSave);
+
             return RedirectToAction(nameof(GamePage));
         }
 
@@ -105,7 +105,8 @@ namespace UBB_SE_2024_Evil.Controllers
                 // TODO: Handle error
                 return RedirectToAction(nameof(Index));
             }
-            if (_context.GameSave.FirstOrDefault(g => g.Name == runName) != null){
+            if (_context.GameSave.FirstOrDefault(g => g.Name == runName) != null)
+            {
                 ModelState.AddModelError("runName", "A game save with this name already exists.");
                 return RedirectToAction(nameof(DuplicateAdded));
             }
@@ -117,8 +118,7 @@ namespace UBB_SE_2024_Evil.Controllers
 
             // Get the game save from the database to ensure that the ID is set
             gameSave = _context.GameSave.FirstOrDefault(g => g.Name == runName);
-            //Game = new Game(gameSave);
-
+            GameHolder.Game = new Game(gameSave);
 
             return RedirectToAction(nameof(GamePage));
         }
@@ -130,7 +130,7 @@ namespace UBB_SE_2024_Evil.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveGame()
         {
-            GameSave gameSave = Game.GetGameSave();
+            GameSave gameSave = GameHolder.Game.GetGameSave();
             _context.GameSave.Update(gameSave);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -143,19 +143,19 @@ namespace UBB_SE_2024_Evil.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DoMove(Move move)
         {
-            if (move.EnergyCost > Game.Player.Energy)
+            if (move.EnergyCost > GameHolder.Game.Player.Energy)
             {
                 // TODO: Handle error
                 return RedirectToAction(nameof(GamePage));
             }
 
-            Result result = Game.DoMove(move);
+            Result result = GameHolder.Game.DoMove(move);
             if (result == Result.CONTINUE)
             {
                 return RedirectToAction(nameof(GamePage));
             }
 
-            GameSave gameSave = Game.GetGameSave();
+            GameSave gameSave = GameHolder.Game.GetGameSave();
             _context.GameSave.Remove(gameSave);
 
             if (result == Result.WIN)

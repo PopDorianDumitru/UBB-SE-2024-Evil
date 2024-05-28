@@ -14,7 +14,7 @@ namespace UBB_SE_2024_Evil.Models.Spartacus
         private static int STARTING_ENERGY = 30;
         private static int MAX_ENERGY_INCREASE = 5;
         private static int STARTING_HEALTH = 100;
-        private static string ENEMY_FILE = "enemies.json";
+        private static string ENEMY_FILE = "./Models/Spartacus/enemies.json";
 
         public Player Player { get; set; }
         public int PlayerHealthAtStartOfLevel { get; set; }
