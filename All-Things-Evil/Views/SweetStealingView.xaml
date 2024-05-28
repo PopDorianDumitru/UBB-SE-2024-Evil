@@ -26,7 +26,11 @@
         <Grid Grid.Column="2" Grid.Row="2">
             <Button x:Name="ScamBotsButton" Width="auto" Height="30" Click="ScamBotsButton_Click" Margin="5">ScamBots</Button>
         </Grid>
-       
+        
+        <Grid Grid.Column="3" Grid.Row="2">
+            <Button x:Name="FightingGameButton" Width="auto" Height="30" Click="FightingGameButton_Click" Margin="5">FightingGame</Button>
+        </Grid>
+
         <ContentControl x:Name="MainContentControl" VerticalAlignment="Center" HorizontalAlignment="Center" Width="auto" Height="auto" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
     </Grid>
 </UserControl>
