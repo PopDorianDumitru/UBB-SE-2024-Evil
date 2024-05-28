@@ -40,7 +40,11 @@ namespace All_Things_Evil.Views.WindowFactory
             return new SweetStealingView(sweetStealingViewModel);
         }
 
-       
+       public FightingGameView CreateFightingGameWindow()
+        {
+            var fightingGameViewModel = ServiceProvider.GetRequiredService<IFightingGameViewModel>();
+            return new FightingGameView(fightingGameViewModel);
+        }
 
        
     }
