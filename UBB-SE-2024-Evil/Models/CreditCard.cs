@@ -10,9 +10,8 @@
 
         public CreditCard()
         { }
-        public CreditCard(int id, string creditCardHolder, string creditCardNumber, string expirationDate, string cvv)
+        public CreditCard(string creditCardHolder, string creditCardNumber, string expirationDate, string cvv)
         {
-            Id = id;
             CreditCardHolder = creditCardHolder;
             CreditCardNumber = creditCardNumber;
             ExpirationDate = expirationDate;

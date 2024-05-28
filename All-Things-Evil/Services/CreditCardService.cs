@@ -23,9 +23,8 @@ namespace All_Things_Evil.Controllers
         public async void SaveCard(string holderName, string creditCardNumber, string expirationDate, string cvv)
         {
             Random random = new Random((int)DateTime.Now.Ticks);
-            int id = random.Next();
 
-            CreditCard card = new CreditCard(id, holderName, creditCardNumber, expirationDate, cvv);
+            CreditCard card = new CreditCard(holderName, creditCardNumber, expirationDate, cvv);
             creditCardProxyRepo.SaveCreditCard(card);
         }
 
