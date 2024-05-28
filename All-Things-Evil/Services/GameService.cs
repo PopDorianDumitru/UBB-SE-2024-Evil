@@ -9,7 +9,7 @@ using UBB_SE_2024_Evil.Models.Spartacus;
 
 namespace All_Things_Evil.Services
 {
-    public class GameService
+    public class GameService : IGameService
     {
         private Game game;
         private IGameProxyRepository gameProxyRepository;
@@ -20,6 +20,7 @@ namespace All_Things_Evil.Services
         public GameService() { }
         public GameService(IGameProxyRepository repo)
         {
+            this.game = new Game(new GameSave("Test"));
             gameProxyRepository = repo;
         }
         public GameService(IGameProxyRepository repo, Game game)
@@ -62,7 +63,7 @@ namespace All_Things_Evil.Services
         public Result DoMove(int damage, int block)
         {
             Move playerMove = new Move(damage, block);
-            
+
             return game.DoMove(playerMove);
 
         }
@@ -74,6 +75,6 @@ namespace All_Things_Evil.Services
         {
             game.Reset();
         }
-        
+
     }
 }

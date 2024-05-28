@@ -23,5 +23,10 @@ namespace All_Things_Evil.ViewModels
         {
             return windowFactory.CreateScamBotsWindow();
         }
+
+        public FightingGameView CreateFightingGameWindow()
+        {
+            return windowFactory.CreateFightingGameWindow();
+        }
     }
 }

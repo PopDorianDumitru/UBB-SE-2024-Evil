@@ -1,5 +1,6 @@
 ﻿using All_Things_Evil.Controllers;
 using All_Things_Evil.Repos;
+using All_Things_Evil.Services;
 using All_Things_Evil.Validators;
 using All_Things_Evil.ViewModels;
 using All_Things_Evil.Views.WindowFactory;
@@ -34,6 +35,9 @@ namespace All_Things_Evil
             services.AddSingleton<ICreditCardProxyRepository, CreditCardProxyRepository>();
             services.AddSingleton<ISubscriptionServiceViewModel, SubscriptionServiceViewModel>();
             services.AddSingleton<ISweetStealingViewModel, SweetStealingViewModel>();
+            services.AddTransient<IFightingGameViewModel, FightingGameViewModel>();
+            services.AddSingleton<IGameService, GameService>();
+            services.AddSingleton<IGameProxyRepository, GameProxyRepository>();
         }
 
         protected override void OnStartup(StartupEventArgs e)
