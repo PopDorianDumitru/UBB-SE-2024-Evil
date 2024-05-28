@@ -1,13 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using All_Things_Evil.Services;
+using All_Things_Evil.Views.WindowFactory;
 
 namespace All_Things_Evil.ViewModels
 {
     public class FightingGameViewModel : INotifyPropertyChanged, IFightingGameViewModel
     {
         private readonly IGameService _gameService;
+        private readonly IWindowFactory _windowFactory;
         private int _player1Health;
         private int _player2Health;
         private int _player1Damage;
@@ -57,19 +60,32 @@ namespace All_Things_Evil.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public FightingGameViewModel(IGameService gameService)
+        public FightingGameViewModel(IGameService gameService, IWindowFactory windowFactory)
         {
             _gameService = gameService;
             DoMoveCommand = new RelayCommand(DoMove);
-            Player1Health = 100;
-            Player2Health = 100;
+            Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
+            Player2Health = gameService.Game.Enemy.Health;
+            _windowFactory = windowFactory;
         }
 
         private void DoMove()
         {
             var result = _gameService.DoMove(Player1Damage, Player1Block);
+            
             Player2Health = _gameService.Game.Enemy.Health;
             Player1Health = _gameService.Game.Player.Health;
+            if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
+            {
+                MessageBox.Show("You win this level!");
+                _gameService.MoveToNextLevel();
+                Player1Health = _gameService.Game.PlayerHealthAtStartOfLevel;
+                Player2Health = _gameService.Game.Enemy.Health;
+            }
+            else if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
+            {
+                MessageBox.Show("You lose!");
+            }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
