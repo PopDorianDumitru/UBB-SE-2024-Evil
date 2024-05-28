@@ -143,6 +143,7 @@ namespace UBB_SE_2024_Evil.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DoMove(Move move)
         {
+            Console.WriteLine("DO MOVE");
             if (move.EnergyCost > GameHolder.Game.Player.Energy)
             {
                 // TODO: Handle error
