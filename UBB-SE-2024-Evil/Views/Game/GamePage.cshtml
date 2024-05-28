@@ -4,9 +4,159 @@
     ViewData["Title"] = "Fight";
 }
 
-<script href="~/Scripts/Spartacus/GamePage.js"></script>
+<html>
+<head>
+    <script href="~/Scripts/Spartacus/GamePage.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .page {
+            background-image: url(https://t4.ftcdn.net/jpg/06/34/46/15/240_F_634461501_60hsVi6ickrduHxCjV3KRApdH96UYhNg.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            display:flex;
+            align-items:center;
+            flex-direction: column;
+        }
 
-<h1>@Model.Level</h1>
+        .player1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-<a asp-action="Win"><button>Win</button></a>
-<a asp-action="Lose"><button>Lose</button></a>
+        .player2{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .players{
+            display: flex;
+            flex-direction: row;
+            gap: 10cm;
+        }
+
+        .health-bar-container {
+            width: 300px; /* Width of the health bar */
+            height: 30px; /* Height of the health bar */
+            background-color: #ddd; /* Background color of the container */
+            border: 2px solid #000; /* Border for better visibility */
+            border-radius: 5px; /* Rounded corners */
+            overflow: hidden; /* Hide overflow for smoother progress bar */
+        }
+
+        .health-bar {
+            height: 100%; /* Full height of the container */
+            background-color: #4caf50; /* Health bar color */
+            transition: width 0.3s; /* Smooth transition for width change */
+        }
+
+        .fighter1{
+            width: 200px;
+            height: 500px;
+            marginTop: 100px;
+            transform: scaleX(-1);
+        }
+
+        .fighter2 {
+            width: 200px;
+            height: 500px;
+        }
+        .move{
+            display: flex;
+            flex-direction: row;
+            gap: 1cm;
+            align-items: center;
+        }
+
+        .circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70px; /* Width and height should be equal to make a circle */
+            height: 70px;
+            background-color: #f0f0f0; /* Background color of the container */
+            border: 2px solid #000; /* Border color and width */
+            border-radius: 50%; /* Makes the container a circle */
+            margin: 20px auto; /* Center the container horizontally and add some margin */
+            text-align: center; /* Center the text inside the circle */
+        }
+
+        .energy{
+            margin-bottom: 0;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            var maxHealth = 200;
+            $('#player-health-bar').css('width', (@Model.Player.Health / maxHealth * 100) + '%');
+            $('#enemy-health-bar').css('width', (@Model.Enemy.Health / maxHealth * 100) + '%');
+            console.log("ENTERED JS");
+            $('#gameForm').submit(function (e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                // Get the values from the input fields
+                var input1Val = parseInt($('#input1').val());
+                var input2Val = parseInt($('#input2').val());
+
+
+                // // Send a PATCH request
+                // '@Url.Action("DoMove", "Game")'
+                $.ajax({
+                   url: '/Game/DoMove',
+                   type: 'PATCH',
+                   dataType: 'json',
+                   data: {
+                        Damage: input1Val,
+                        Block: input2Val
+                   },
+                   success: function (response) {
+                       // Handle success response
+                   },
+                   error: function (xhr, status, error) {
+                       // Handle error
+                   }
+                });
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+    <div class="page">
+        <div class="players">
+            <div class="player2">
+                <div class="circle">
+                    <p class="energy">Energy: @Model.Player.Energy</p>
+                </div>
+                <div class="health-bar-container">
+                    <div class="health-bar" id="player-health-bar"></div>
+                </div>
+                <img class="fighter2" src="~/Resources/Spartacus/fighter2.png" />
+            </div>
+            <div class="player1">
+                <div class="circle">
+                    <p class="energy">Energy: @Model.Enemy.MaxEnergy</p>
+                </div>
+                <div class="health-bar-container">
+                    <div class="health-bar" id="enemy-health-bar"></div>
+                </div>
+                <img class="fighter1" src="~/Resources/Spartacus/fighter1.png"/>
+            </div>
+        </div>
+        <div>
+            <form id="gameForm" class="move">
+                <input id="input1" type="number" placeholder="Damage:"/>
+                <p>Damage</p>
+                <input id="input2" type="number" placeholder="Block:"/>
+                <p>Block</p>
+                @* <button type="submit">Submit</button> *@
+                <input type="submit" hidden />
+            </form>
+        </div>
+    </div>
+@*     <a asp-action="Win"><button>Win</button></a>
+    <a asp-action="Lose"><button>Lose</button></a> *@
+</body>
+</html>
