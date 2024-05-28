@@ -68,7 +68,8 @@ namespace All_Things_Evil.ViewModels
         private void DoMove()
         {
             var result = _gameService.DoMove(Player1Damage, Player1Block);
-            Player2Health -= Player1Damage;
+            Player2Health = _gameService.Game.Enemy.Health;
+            Player1Health = _gameService.Game.Player.Health;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
