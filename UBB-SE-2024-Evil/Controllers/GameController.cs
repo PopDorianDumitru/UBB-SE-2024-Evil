@@ -140,10 +140,12 @@ namespace UBB_SE_2024_Evil.Controllers
         // Make move endpoint
         // Processes a move and refreshes the game page
         [HttpPatch]
-        [ValidateAntiForgeryToken]
-        public IActionResult DoMove(Move move)
+        public IActionResult DoMove()
         {
-            Console.WriteLine("DO MOVE");
+            int damage = int.Parse(Request.Query["damage"]);
+            int block = int.Parse(Request.Query["block"]);
+            Move move = new Move(damage, block);
+
             if (move.EnergyCost > GameHolder.Game.Player.Energy)
             {
                 // TODO: Handle error
