@@ -5,6 +5,5 @@
         ScamBotsView CreateScamBotsWindow();
         SubscriptionServiceView CreateSubscriptionWindow();
         SweetStealingView CreateSweetStealingView();
-        FightingGameView CreateFightingGameWindow();
     }
 }
