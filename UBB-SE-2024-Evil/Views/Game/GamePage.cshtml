@@ -25,7 +25,7 @@
         <div class="players">
             <div class="player2">
                 <div class="circle">
-                    <p class="energy">Energy: @Model.Player.Energy</p>
+                    <p>Energy: @Model.Player.Energy</p>
                 </div>
                 <div class="health-bar-container">
                     <div class="health-bar" id="player-health-bar"></div>
@@ -34,7 +34,7 @@
             </div>
             <div class="player1">
                 <div class="circle">
-                    <p class="energy">Energy: @Model.Enemy.MaxEnergy</p>
+                    <p>Energy: @Model.Enemy.MaxEnergy</p>
                 </div>
                 <div class="health-bar-container">
                     <div class="health-bar" id="enemy-health-bar"></div>
@@ -43,13 +43,18 @@
             </div>
         </div>
         <div>
-            <div class="move">
-                <input id="inputDamage" type="number" placeholder="Damage:"/>
-                <p>Damage</p>
-                <input id="inputBlock" type="number" placeholder="Block:"/>
-                <p>Block</p>
-                <button id="submitButton">Submit</button>
-            </div>
+            <form id="moveForm" class="move">
+                <input class="move_inputs" id="inputDamage" type="number"/>
+                <div class="cylindrical-container">
+                    <p><b>Damage</b></p>
+                </div>
+                <input class="move_inputs" id="inputBlock" type="number"/>
+                <div class="cylindrical-container">
+                    <p><b>Block</b></p>
+                </div>
+                <input type="submit" hidden />
+                @* <button id="submitButton">Submit</button> *@
+            </form>
         </div>
     </div>
 </body>

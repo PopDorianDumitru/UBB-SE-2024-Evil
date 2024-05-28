@@ -43,7 +43,8 @@
 .fighter1 {
     width: 200px;
     height: 500px;
-    marginTop: 100px;
+    margin-bottom: 0;
+    margin-top: 50px;
     transform: scaleX(-1);
 }
 
@@ -72,6 +73,27 @@
     text-align: center; /* Center the text inside the circle */
 }
 
-.energy {
+p{
     margin-bottom: 0;
+}
+
+
+.cylindrical-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px; /* Padding inside the container */
+    background-color: #BE4C34; /* Pale red background color */
+    border: 2px solid #BE4C34; /* Border color */
+    border-radius: 50px; /* Rounded corners on the left and right */
+    width: 220px; /* Width of the container */
+    height: 70px; /* Height of the container to create the cylindrical shape */
+    margin: 20px auto; /* Center the container horizontally and add some margin */
+    text-align: center; /* Center the text inside the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow for better visibility */
+}
+
+.move_inputs{
+    width: 70px;
+    height: 70px;
 }
