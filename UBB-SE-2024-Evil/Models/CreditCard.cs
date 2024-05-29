@@ -10,6 +10,7 @@
 
         public CreditCard()
         { }
+
         public CreditCard(string creditCardHolder, string creditCardNumber, string expirationDate, string cvv)
         {
             CreditCardHolder = creditCardHolder;
