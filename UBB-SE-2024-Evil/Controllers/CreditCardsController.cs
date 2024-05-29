@@ -14,33 +14,33 @@ namespace UBB_SE_2024_Evil.Controllers
     [ApiController]
     public class CreditCardsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
         public CreditCardsController(ApplicationDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: api/CreditCards
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CreditCard>>> GetCreditCard()
         {
-          if (_context.CreditCard == null)
-          {
-              return NotFound();
-          }
-            return await _context.CreditCard.ToListAsync();
+            if (context.CreditCard == null)
+            {
+                return NotFound();
+            }
+            return await context.CreditCard.ToListAsync();
         }
 
         // GET: api/CreditCards/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CreditCard>> GetCreditCard(int id)
         {
-          if (_context.CreditCard == null)
-          {
-              return NotFound();
-          }
-            var creditCard = await _context.CreditCard.FindAsync(id);
+            if (context.CreditCard == null)
+            {
+                return NotFound();
+            }
+            var creditCard = await context.CreditCard.FindAsync(id);
 
             if (creditCard == null)
             {
@@ -60,11 +60,11 @@ namespace UBB_SE_2024_Evil.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(creditCard).State = EntityState.Modified;
+            context.Entry(creditCard).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -86,12 +86,12 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpPost]
         public async Task<ActionResult<CreditCard>> PostCreditCard(CreditCard creditCard)
         {
-          if (_context.CreditCard == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.CreditCard'  is null.");
-          }
-            _context.CreditCard.Add(creditCard);
-            await _context.SaveChangesAsync();
+            if (context.CreditCard == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.CreditCard'  is null.");
+            }
+            context.CreditCard.Add(creditCard);
+            await context.SaveChangesAsync();
 
             return CreatedAtAction("GetCreditCard", new { id = creditCard.Id }, creditCard);
         }
@@ -100,25 +100,25 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCreditCard(int id)
         {
-            if (_context.CreditCard == null)
+            if (context.CreditCard == null)
             {
                 return NotFound();
             }
-            var creditCard = await _context.CreditCard.FindAsync(id);
+            var creditCard = await context.CreditCard.FindAsync(id);
             if (creditCard == null)
             {
                 return NotFound();
             }
 
-            _context.CreditCard.Remove(creditCard);
-            await _context.SaveChangesAsync();
+            context.CreditCard.Remove(creditCard);
+            await context.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool CreditCardExists(int id)
         {
-            return (_context.CreditCard?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (context.CreditCard?.Any(element => element.Id == id)).GetValueOrDefault();
         }
     }
 }

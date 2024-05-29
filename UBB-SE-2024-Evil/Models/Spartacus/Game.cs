@@ -11,10 +11,10 @@ namespace UBB_SE_2024_Evil.Models.Spartacus
 
     public class Game
     {
-        private static int STARTING_ENERGY = 30;
-        private static int MAX_ENERGY_INCREASE = 5;
-        private static int STARTING_HEALTH = 100;
-        private static string ENEMY_FILE = "./Models/Spartacus/enemies.json";
+        private static readonly int STARTING_ENERGY = 30;
+        private static readonly int MAX_ENERGY_INCREASE = 5;
+        private static readonly int STARTING_HEALTH = 100;
+        private static readonly string ENEMY_FILE = "./Models/Spartacus/enemies.json";
 
         public int GameSaveId { get; set; } = -1;
         public Player Player { get; set; }

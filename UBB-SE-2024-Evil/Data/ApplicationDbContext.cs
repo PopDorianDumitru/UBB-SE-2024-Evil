@@ -18,22 +18,22 @@ namespace UBB_SE_2024_Evil.Data
 
             modelBuilder.Entity<CreditCard>(card =>
             {
-                card.Property(c => c.Id).ValueGeneratedOnAdd();
-                card.HasKey(c => c.Id);
-                card.Property(c => c.CreditCardHolder).IsRequired();
-                card.Property(c => c.CreditCardNumber).IsRequired();
-                card.Property(c => c.ExpirationDate).IsRequired();
-                card.Property(c => c.Cvv).IsRequired();
+                card.Property(card => card.Id).ValueGeneratedOnAdd();
+                card.HasKey(card => card.Id);
+                card.Property(card => card.CreditCardHolder).IsRequired();
+                card.Property(card => card.CreditCardNumber).IsRequired();
+                card.Property(card => card.ExpirationDate).IsRequired();
+                card.Property(card => card.Cvv).IsRequired();
             });
 
             modelBuilder.Entity<GameSave>(gameSave =>
             {
-                gameSave.Property(g => g.Id).ValueGeneratedOnAdd();
-                gameSave.HasKey(g => g.Id);
-                gameSave.Property(g => g.Level).IsRequired();
-                gameSave.Property(g => g.Name).IsRequired();
-                gameSave.HasIndex(g => g.Name).IsUnique();
-                gameSave.Property(g => g.PlayerHealth).IsRequired();
+                gameSave.Property(gameSave => gameSave.Id).ValueGeneratedOnAdd();
+                gameSave.HasKey(gameSave => gameSave.Id);
+                gameSave.Property(gameSave => gameSave.Level).IsRequired();
+                gameSave.Property(gameSave => gameSave.Name).IsRequired();
+                gameSave.HasIndex(gameSave => gameSave.Name).IsUnique();
+                gameSave.Property(gameSave => gameSave.PlayerHealth).IsRequired();
             });
         }
 
