@@ -93,6 +93,8 @@ namespace UBB_SE_2024_Evil.Models.Spartacus
             Level = 0;
             Player = new Player(STARTING_HEALTH, STARTING_HEALTH, STARTING_ENERGY);
             PlayerHealthAtStartOfLevel = STARTING_HEALTH;
+            Enemies = LoadEnemies();
+
             Enemy = Enemies[Level];
         }
 
