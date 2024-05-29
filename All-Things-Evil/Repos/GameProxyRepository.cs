@@ -1,11 +1,11 @@
-﻿using All_Things_Evil.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using All_Things_Evil.Services;
 using UBB_SE_2024_Evil.Models.Spartacus;
 
 namespace All_Things_Evil.Repos
@@ -23,7 +23,7 @@ namespace All_Things_Evil.Repos
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.PostAsync(SERVER_URL + "/Game/GameSaves/", data);
+                HttpResponseMessage response = await client.GetAsync(SERVER_URL + "/api/GameSaves");
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception("Error: " + response.ReasonPhrase);
@@ -40,7 +40,7 @@ namespace All_Things_Evil.Repos
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.PostAsync(SERVER_URL + "/api/GameSaves", data);
+                HttpResponseMessage response = await client.PutAsync(SERVER_URL + "/api/GameSaves/" + gameSave.Id.ToString(), data);
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception("Error: " + response.ReasonPhrase);
@@ -48,13 +48,13 @@ namespace All_Things_Evil.Repos
             }
         }
 
-        public async Task<GameSave> LoadSave(string id)
+        public async Task<GameSave> LoadSave(int id)
         {
             var json = JsonSerializer.Serialize(id);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.PostAsync(SERVER_URL + "/Game/LoadSave", data);
+                HttpResponseMessage response = await client.GetAsync(SERVER_URL + "/api/GameSaves/" + id.ToString());
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception("Error: " + response.ReasonPhrase);
@@ -65,13 +65,13 @@ namespace All_Things_Evil.Repos
             }
         }
 
-        public async Task<GameSave> NewSave(string runName)
+        public async Task<GameSave> NewSave(GameSave runName)
         {
             var json = JsonSerializer.Serialize(runName);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.PostAsync(SERVER_URL + "/Game/NewSave", data);
+                HttpResponseMessage response = await client.PostAsync(SERVER_URL + "/api/GameSaves", data);
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception("Error: " + response.ReasonPhrase);
@@ -81,6 +81,5 @@ namespace All_Things_Evil.Repos
                 return gameSave;
             }
         }
-
     }
 }

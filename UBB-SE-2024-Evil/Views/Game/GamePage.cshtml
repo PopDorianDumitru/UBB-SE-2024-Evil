@@ -4,7 +4,28 @@
     ViewData["Title"] = "Fight";
 }
 
-<h1>@Model.Level</h1>
+<link rel="stylesheet" type="text/css" href="~/css/Spartacus/GamePage.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/Spartacus/GamePage.js"></script>
 
-<a asp-action="Win"><button>Win</button></a>
-<a asp-action="Lose"><button>Lose</button></a>
+<div class="page">
+    <div id="playersContainer" class="players">
+        @Html.Partial("_GameScene", Model)
+    </div>
+    <div class="lower_layout">
+        <div>
+            <form id="moveForm" class="move">
+                <input class="move_inputs" id="inputDamage" type="number" />
+                <div class="cylindrical-container">
+                    <p><b>Damage</b></p>
+                </div>
+                <input class="move_inputs" id="inputBlock" type="number" />
+                <div class="cylindrical-container">
+                    <p><b>Block</b></p>
+                </div>
+                <input type="submit" hidden />
+            </form>
+        </div>
+        <button class="cylindrical-container" id="save_button"><b>Save Game</b></button>
+    </div>
+</div>

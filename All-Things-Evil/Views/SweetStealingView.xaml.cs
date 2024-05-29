@@ -1,6 +1,4 @@
-﻿using All_Things_Evil.ViewModels;
-using All_Things_Evil.Views.WindowFactory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using All_Things_Evil.ViewModels;
+using All_Things_Evil.Views.WindowFactory;
 
 namespace All_Things_Evil.Views
 {
@@ -22,7 +22,7 @@ namespace All_Things_Evil.Views
     /// </summary>
     public partial class SweetStealingView : UserControl
     {
-        ISweetStealingViewModel sweetStealingViewModel;
+        private ISweetStealingViewModel sweetStealingViewModel;
         public SweetStealingView(ISweetStealingViewModel viewModel)
         {
             InitializeComponent();
@@ -36,13 +36,10 @@ namespace All_Things_Evil.Views
                 var subscriptionWindow = sweetStealingViewModel.CreateSubscriptionWindow();
                 MainContentControl.Content = subscriptionWindow;
             }
-            catch (System.Exception ex)
+            catch (System.Exception exception)
             {
             }
         }
-
-       
-
         private void ScamBotsButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -50,11 +47,21 @@ namespace All_Things_Evil.Views
                 var scamBotsWindow = sweetStealingViewModel.CreateScamBotsWindow();
                 MainContentControl.Content = scamBotsWindow;
             }
-            catch (System.Exception ex)
+            catch (System.Exception exception)
             {
             }
         }
 
-        
+        private void FightingGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var saveSelectGameWindow = sweetStealingViewModel.CreateSaveSelectGameWindow();
+                MainContentControl.Content = saveSelectGameWindow;
+            }
+            catch (System.Exception exception)
+            {
+            }
+        }
     }
 }

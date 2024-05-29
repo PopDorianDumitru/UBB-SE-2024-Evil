@@ -23,7 +23,7 @@
             <Button x:Name="SweetStealing" Width="auto" Height="30" Click="SweetStealingButton_Click" Margin="5">Sweet Stealing</Button>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="2">
-            <Button x:Name="Spartacus" Width="auto" Height="30" Click="SweetStealingButton_Click" Margin="5">Spartacus</Button>
+            <Button x:Name="Spartacus" Width="auto" Height="30" Click="FightingGameButton_Click" Margin="5">Spartacus</Button>
         </Grid>
     </Grid>
 </Window>

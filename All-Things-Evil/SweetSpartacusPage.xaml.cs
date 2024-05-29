@@ -1,5 +1,4 @@
-﻿using All_Things_Evil.Views.WindowFactory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using All_Things_Evil.Views.WindowFactory;
 
 namespace All_Things_Evil
 {
@@ -32,8 +32,22 @@ namespace All_Things_Evil
         {
             try
             {
+                MainGrid.Children.Clear();
                 var sweetStealingView = windowFactory.CreateSweetStealingView();
                 MainGrid.Children.Add(sweetStealingView);
+            }
+            catch (System.Exception exception)
+            {
+            }
+        }
+
+        private void FightingGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainGrid.Children.Clear();
+                var fightingGameWindow = windowFactory.CreateFightingGameWindow();
+                MainGrid.Children.Add(fightingGameWindow);
             }
             catch (System.Exception exception)
             {

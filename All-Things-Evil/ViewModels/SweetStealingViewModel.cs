@@ -1,16 +1,16 @@
-﻿using All_Things_Evil.Views;
-using All_Things_Evil.Views.WindowFactory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using All_Things_Evil.Views;
+using All_Things_Evil.Views.WindowFactory;
 
 namespace All_Things_Evil.ViewModels
 {
     public class SweetStealingViewModel : ISweetStealingViewModel
     {
-        IWindowFactory windowFactory;
+        private IWindowFactory windowFactory;
         public SweetStealingViewModel(IWindowFactory windowFactory)
         {
             this.windowFactory = windowFactory;
@@ -22,6 +22,15 @@ namespace All_Things_Evil.ViewModels
         public ScamBotsView CreateScamBotsWindow()
         {
             return windowFactory.CreateScamBotsWindow();
+        }
+
+        public FightingGameView CreateFightingGameWindow()
+        {
+            return windowFactory.CreateFightingGameWindow();
+        }
+        public SaveSelectGameView CreateSaveSelectGameWindow()
+        {
+            return windowFactory.CreateSaveSelectGameWindow();
         }
     }
 }

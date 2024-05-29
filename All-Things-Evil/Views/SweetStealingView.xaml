@@ -27,6 +27,7 @@
             <Button x:Name="ScamBotsButton" Width="auto" Height="30" Click="ScamBotsButton_Click" Margin="5">ScamBots</Button>
         </Grid>
        
+
         <ContentControl x:Name="MainContentControl" VerticalAlignment="Center" HorizontalAlignment="Center" Width="auto" Height="auto" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
     </Grid>
 </UserControl>

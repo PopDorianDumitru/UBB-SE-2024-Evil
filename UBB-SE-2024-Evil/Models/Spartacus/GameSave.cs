@@ -1,18 +1,30 @@
-﻿namespace UBB_SE_2024_Evil.Models.Spartacus
+﻿using System.Text.Json.Serialization;
+
+namespace UBB_SE_2024_Evil.Models.Spartacus
 {
     public class GameSave
     {
-        private static int STARTING_HEALTH = 100;
-        private static int STARTING_ENERGY = 30;
+        private static readonly int STARTING_HEALTH = 100;
+        private static readonly int STARTING_ENERGY = 30;
 
+        [JsonPropertyName("id")]
         public int Id { get; set; }
+
+        [JsonPropertyName("level")]
         public int Level { get; set; }
+
+        [JsonPropertyName("name")]
         public string Name { get; set; }
+
+        [JsonPropertyName("playerHealth")]
         public int PlayerHealth { get; set; }
+
+        [JsonPropertyName("playerEnergy")]
         public int PlayerEnergy { get; set; }
 
         public GameSave()
-        { }
+        {
+        }
 
         public GameSave(string runName)
         {
@@ -32,6 +44,8 @@
         }
 
         public GameSave(int id)
-        { Id = id; }
+        {
+            Id = id;
+        }
     }
 }

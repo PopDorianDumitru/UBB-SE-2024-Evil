@@ -1,26 +1,20 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using UBB_SE_2024_Evil.Data;
 using UBB_SE_2024_Evil.Models.Spartacus;
-using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace UBB_SE_2024_Evil.Controllers
 {
-    public class GameHolder
-    {
-        public static Game Game { get; set; }
-    }
-
     [Authorize]
     public class GameController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        public static Game Game { get; set; }
+        private readonly ApplicationDbContext context;
 
         public GameController(ApplicationDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: Game
@@ -28,11 +22,9 @@ namespace UBB_SE_2024_Evil.Controllers
         // Allows the user to select a saved game to load or to create a new game
         public IActionResult Index()
         {
-            List<GameSave> gameSaves = _context.GameSave.ToList();
+            List<GameSave> gameSaves = context.GameSave.ToList();
 
-            //return View(saves);
             return View(gameSaves);
-            //return View();
         }
 
         // GET: Game/GamePage
@@ -41,8 +33,8 @@ namespace UBB_SE_2024_Evil.Controllers
         // Also allows the user to save the run
         public IActionResult GamePage()
         {
-            Game aux = GameHolder.Game;
-            return View(GameHolder.Game);
+            Game aux = Game;
+            return View(Game);
         }
 
         // GET: Game/Win
@@ -63,11 +55,17 @@ namespace UBB_SE_2024_Evil.Controllers
             return View();
         }
 
+        // GET: Game/NewRun
+        // New run page
+        // Allows the user to create a new game
         public IActionResult NewRun()
         {
             return View();
         }
 
+        // GET: Game/DuplicateAdded
+        // Duplicate added page
+        // Displays a message indicating that a game save with the same name already exists
         public IActionResult DuplicateAdded()
         {
             return View();
@@ -82,13 +80,12 @@ namespace UBB_SE_2024_Evil.Controllers
         {
             if (gameSaveId <= 0)
             {
-                // TODO: Handle error
-                return RedirectToAction(nameof(Index));
+                throw new Exception("Invalid game save ID.");
             }
 
-            GameSave gameSave = _context.GameSave.FirstOrDefault(gs => gs.Id == gameSaveId);
+            GameSave gameSave = context.GameSave.FirstOrDefault(gameSave => gameSave.Id == gameSaveId);
 
-            GameHolder.Game = new Game(gameSave);
+            Game = new Game(gameSave);
 
             return RedirectToAction(nameof(GamePage));
         }
@@ -98,14 +95,13 @@ namespace UBB_SE_2024_Evil.Controllers
         // Creates a new game save and redirects to the main game page
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> NewSave(string runName)
+        public IActionResult NewSave(string runName)
         {
             if (runName.IsNullOrEmpty())
             {
-                // TODO: Handle error
-                return RedirectToAction(nameof(Index));
+                throw new Exception("Run name cannot be empty.");
             }
-            if (_context.GameSave.FirstOrDefault(g => g.Name == runName) != null)
+            if (context.GameSave.FirstOrDefault(gameSave => gameSave.Name == runName) != null)
             {
                 ModelState.AddModelError("runName", "A game save with this name already exists.");
                 return RedirectToAction(nameof(DuplicateAdded));
@@ -113,50 +109,51 @@ namespace UBB_SE_2024_Evil.Controllers
 
             GameSave gameSave = new GameSave(runName);
 
-            _context.GameSave.Add(gameSave);
-            await _context.SaveChangesAsync();
+            context.GameSave.Add(gameSave);
+            context.SaveChanges();
 
             // Get the game save from the database to ensure that the ID is set
-            gameSave = _context.GameSave.FirstOrDefault(g => g.Name == runName);
-            GameHolder.Game = new Game(gameSave);
+            gameSave = context.GameSave.FirstOrDefault(gameSave => gameSave.Name == runName);
+            Game = new Game(gameSave);
 
             return RedirectToAction(nameof(GamePage));
         }
 
-        // POST: Game/SaveGame
+        // Patch: Game/SaveGame
         // Save game endpoint
-        // Saves the current game state and redirects to the load save page
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveGame()
+        // Saves the current game state
+        [HttpPatch]
+        public void SaveGame()
         {
-            GameSave gameSave = GameHolder.Game.GetGameSave();
-            _context.GameSave.Update(gameSave);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            GameSave gameSave = Game.GetGameSave();
+            context.GameSave.Update(gameSave);
+            context.SaveChanges();
         }
 
         // PATCH: Game/DoMove
         // Make move endpoint
         // Processes a move and refreshes the game page
         [HttpPatch]
-        [ValidateAntiForgeryToken]
-        public IActionResult DoMove(Move move)
+        public IActionResult DoMove()
         {
-            if (move.EnergyCost > GameHolder.Game.Player.Energy)
+            int damage = int.Parse(Request.Query["damage"]);
+            int block = int.Parse(Request.Query["block"]);
+            Move move = new Move(damage, block);
+
+            if (move.EnergyCost > Game.Player.Energy)
             {
-                // TODO: Handle error
-                return RedirectToAction(nameof(GamePage));
+                throw new Exception("Not enough energy to perform this move.");
             }
 
-            Result result = GameHolder.Game.DoMove(move);
+            Result result = Game.DoMove(move);
             if (result == Result.CONTINUE)
             {
-                return RedirectToAction(nameof(GamePage));
+                return PartialView("_GameScene", Game);
             }
 
-            GameSave gameSave = GameHolder.Game.GetGameSave();
-            _context.GameSave.Remove(gameSave);
+            GameSave gameSave = Game.GetGameSave();
+            context.GameSave.Remove(gameSave);
+            context.SaveChanges();
 
             if (result == Result.WIN)
             {

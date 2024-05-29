@@ -1,0 +1,112 @@
+﻿.page {
+    background-image: url(https://t4.ftcdn.net/jpg/06/34/46/15/240_F_634461501_60hsVi6ickrduHxCjV3KRApdH96UYhNg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.player1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.players {
+    display: flex;
+    flex-direction: row;
+    gap: 10cm;
+}
+
+.health-bar-container {
+    width: 300px; /* Width of the health bar */
+    height: 30px; /* Height of the health bar */
+    background-color: #ddd; /* Background color of the container */
+    border: 2px solid #000; /* Border for better visibility */
+    border-radius: 5px; /* Rounded corners */
+    overflow: hidden; /* Hide overflow for smoother progress bar */
+}
+
+.health-bar {
+    height: 100%; /* Full height of the container */
+    background-color: #4caf50; /* Health bar color */
+    transition: width 0.3s; /* Smooth transition for width change */
+}
+
+.fighter1 {
+    width: 200px;
+    height: 500px;
+    margin-bottom: 0;
+    margin-top: 50px;
+    transform: scaleX(-1);
+}
+
+.fighter2 {
+    width: 200px;
+    height: 500px;
+}
+
+.move {
+    display: flex;
+    flex-direction: row;
+    gap: 1cm;
+    align-items: center;
+}
+
+.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px; /* Width and height should be equal to make a circle */
+    height: 70px;
+    background-color: #f0f0f0; /* Background color of the container */
+    border: 2px solid #000; /* Border color and width */
+    border-radius: 50%; /* Makes the container a circle */
+    margin: 20px auto; /* Center the container horizontally and add some margin */
+    text-align: center; /* Center the text inside the circle */
+}
+
+p{
+    margin-bottom: 0;
+}
+
+
+.cylindrical-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px; /* Padding inside the container */
+    background-color: #BE4C34; /* Pale red background color */
+    border: 2px solid #BE4C34; /* Border color */
+    border-radius: 50px; /* Rounded corners on the left and right */
+    width: 220px; /* Width of the container */
+    height: 70px; /* Height of the container to create the cylindrical shape */
+    margin: 20px auto; /* Center the container horizontally and add some margin */
+    text-align: center; /* Center the text inside the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow for better visibility */
+}
+
+.move_inputs{
+    width: 70px;
+    height: 70px;
+}
+
+.details{
+    display: flex;
+    flex-direction: row;
+    gap: 1cm;
+}
+
+.lower_layout{
+    display: flex;
+    flex-direction: row;
+    margin-left: 230px;
+    gap: 2cm;
+}
