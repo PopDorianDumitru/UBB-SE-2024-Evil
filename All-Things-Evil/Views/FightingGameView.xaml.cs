@@ -25,6 +25,8 @@ namespace All_Things_Evil.Views
 
         private void UpdateUI()
         {
+            energyLabelPlayer1.Content = $"Energy: {_viewModel.Player1Energy}";
+            energyLabelPlayer2.Content = $"Energy: {_viewModel.Player2Energy}";
             healthBarPlayer1.Value = _viewModel.Player1Health;
             healthBarPlayer2.Value = _viewModel.Player2Health;
             inputDamagePlayer1.Text = _viewModel.Player1Damage.ToString();
