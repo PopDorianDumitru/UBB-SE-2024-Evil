@@ -1,6 +1,6 @@
 ﻿[
   {
-    "Name": "Goblin",
+    "Name": "Cezar",
     "MaxHealth": 50,
     "Health": 50,
     "Block": 0,
@@ -22,7 +22,7 @@
     "CurrentMoveIndex": 0
   },
   {
-    "Name": "Orc",
+    "Name": "Bartolomeu",
     "MaxHealth": 100,
     "Health": 100,
     "Block": 0,
@@ -44,7 +44,7 @@
     "CurrentMoveIndex": 0
   },
   {
-    "Name": "Troll",
+    "Name": "Sosoaca",
     "MaxHealth": 200,
     "Health": 200,
     "Block": 0,

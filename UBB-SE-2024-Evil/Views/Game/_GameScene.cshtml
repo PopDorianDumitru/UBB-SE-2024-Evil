@@ -2,6 +2,9 @@
 
 <!-- This is a partial view -->
 
+<!-- Style this Luca -->
+<div id="enemyName"></div>
+
 <div class="player2">
     <div class="circle">
         <p>Energy: @Model.Player.Energy</p>
@@ -22,6 +25,7 @@
 </div>
 
 <script>
+    $('#enemyName').text('@Model.Enemy.Name');
     $('#player-health-bar').css('width', (@Model.Player.Health / @Model.Player.MaxHealth * 100) + '%');
     $('#enemy-health-bar').css('width', (@Model.Enemy.Health / @Model.Enemy.MaxHealth * 100) + '%');
 </script>

@@ -97,7 +97,7 @@ namespace UBB_SE_2024_Evil.Controllers
         // Creates a new game save and redirects to the main game page
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> NewSave(string runName)
+        public IActionResult NewSave(string runName)
         {
             if (runName.IsNullOrEmpty())
             {
@@ -112,7 +112,7 @@ namespace UBB_SE_2024_Evil.Controllers
             GameSave gameSave = new GameSave(runName);
 
             _context.GameSave.Add(gameSave);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             // Get the game save from the database to ensure that the ID is set
             gameSave = _context.GameSave.FirstOrDefault(g => g.Name == runName);
@@ -126,7 +126,7 @@ namespace UBB_SE_2024_Evil.Controllers
         // Saves the current game state and redirects to the load save page
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveGame()
+        public IActionResult SaveGame()
         {
             GameSave gameSave = Game.GetGameSave();
             _context.GameSave.Update(gameSave);
