@@ -124,14 +124,13 @@ namespace UBB_SE_2024_Evil.Controllers
         // POST: Game/SaveGame
         // Save game endpoint
         // Saves the current game state and redirects to the load save page
-        [HttpPost]
+        [HttpPatch]
         [ValidateAntiForgeryToken]
-        public IActionResult SaveGame()
+        public void SaveGame()
         {
             GameSave gameSave = Game.GetGameSave();
             _context.GameSave.Update(gameSave);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
         }
 
         // PATCH: Game/DoMove
