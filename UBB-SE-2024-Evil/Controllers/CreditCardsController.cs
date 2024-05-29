@@ -91,7 +91,7 @@ namespace UBB_SE_2024_Evil.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.CreditCard'  is null.");
             }
-            
+
             try
             {
                 CreditCardValidator.Validate(creditCard);
@@ -100,7 +100,7 @@ namespace UBB_SE_2024_Evil.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
+
             context.CreditCard.Add(creditCard);
             await context.SaveChangesAsync();
 
