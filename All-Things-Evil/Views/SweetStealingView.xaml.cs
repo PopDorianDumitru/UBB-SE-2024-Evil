@@ -51,5 +51,17 @@ namespace All_Things_Evil.Views
             {
             }
         }
+
+        private void FightingGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var saveSelectGameWindow = sweetStealingViewModel.CreateSaveSelectGameWindow();
+                MainContentControl.Content = saveSelectGameWindow;
+            }
+            catch (System.Exception exception)
+            {
+            }
+        }
     }
 }
