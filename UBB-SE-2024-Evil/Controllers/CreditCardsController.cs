@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UBB_SE_2024_Evil.Data;
 using UBB_SE_2024_Evil.Models;
+using UBB_SE_2024_Evil.Validators;
 
 namespace UBB_SE_2024_Evil.Controllers
 {
@@ -90,6 +91,16 @@ namespace UBB_SE_2024_Evil.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.CreditCard'  is null.");
             }
+
+            try
+            {
+                CreditCardValidator.Validate(creditCard);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             _context.CreditCard.Add(creditCard);
             await _context.SaveChangesAsync();
 

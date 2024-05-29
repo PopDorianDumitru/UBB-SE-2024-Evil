@@ -18,27 +18,18 @@
             isValid = false;
         }
 
-        if (!/^\d{16}$/.test(creditCardNumber)) {
-            showError('cardNumber', 'Card number must be 16 digits');
+        if (!creditCardNumber) {
+            showError('cardNumber', 'Card number is required');
             isValid = false;
         }
 
-        if (!/^(0[1-9]|1[0-2])\/\d{4}$/.test(expirationDate)) {
-            showError('expiry', 'Expiry must be in MM/YYYY format');
+        if (!expirationDate) {
+            showError('expiry', 'Expiration date is required');
             isValid = false;
-        } else {
-            // Additional check for expiration date validity
-            const [month, year] = expirationDate.split('/');
-            const expiryDate = new Date(`${year}-${month}-01`);
-            const currentDate = new Date();
-            if (expiryDate < currentDate) {
-                showError('expiry', 'Expiry date cannot be in the past');
-                isValid = false;
-            }
         }
 
-        if (!/^\d{3,4}$/.test(cvv)) {
-            showError('cvv', 'CVV must be 3 or 4 digits');
+        if (!cvv) {
+            showError('cvv', 'CVV is required');
             isValid = false;
         }
 
@@ -60,7 +51,6 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (response) {
-                    console.log('Payment processed successfully:', response);
                     alert('Payment processed successfully!');
                 },
                 error: function (error) {
