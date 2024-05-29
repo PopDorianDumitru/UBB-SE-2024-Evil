@@ -44,7 +44,7 @@ namespace All_Things_Evil
         {
             base.OnStartup(e);
 
-            MainWindow window = new MainWindow(serviceProvider.GetRequiredService<IWindowFactory>());
+            SweetSpartacusPage window = new SweetSpartacusPage(serviceProvider.GetRequiredService<IWindowFactory>());
             window.Show();
         }
     }

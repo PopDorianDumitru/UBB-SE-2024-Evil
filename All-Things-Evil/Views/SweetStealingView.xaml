@@ -19,7 +19,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Column="0" Grid.Row="2">
+        <Grid Grid.Column="1" Grid.Row="2">
             <Button x:Name="SubscriptionButton" Width="auto" Height="30" Click="SubscriptionButton_Click" Margin="5">Subscription</Button>
         </Grid>
         

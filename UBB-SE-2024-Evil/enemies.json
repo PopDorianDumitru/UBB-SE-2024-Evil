@@ -1,0 +1,65 @@
+﻿[
+  {
+    "Name": "Goblin",
+    "Health": 50,
+    "Block": 0,
+    "MaxEnergy": 20,
+    "Moves": [
+      {
+        "Damage": 10,
+        "Block": 10
+      },
+      {
+        "Damage": 20,
+        "Block": 0
+      },
+      {
+        "Damage": 0,
+        "Block": 20
+      }
+    ],
+    "CurrentMoveIndex": 0
+  },
+  {
+    "Name": "Orc",
+    "Health": 100,
+    "Block": 0,
+    "MaxEnergy": 30,
+    "Moves": [
+      {
+        "Damage": 20,
+        "Block": 10
+      },
+      {
+        "Damage": 30,
+        "Block": 0
+      },
+      {
+        "Damage": 0,
+        "Block": 30
+      }
+    ],
+    "CurrentMoveIndex": 0
+  },
+  {
+    "Name": "Troll",
+    "Health": 200,
+    "Block": 0,
+    "MaxEnergy": 40,
+    "Moves": [
+      {
+        "Damage": 30,
+        "Block": 10
+      },
+      {
+        "Damage": 40,
+        "Block": 0
+      },
+      {
+        "Damage": 0,
+        "Block": 40
+      }
+    ],
+    "CurrentMoveIndex": 0
+  }
+]
