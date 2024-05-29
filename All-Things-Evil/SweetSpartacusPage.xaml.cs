@@ -32,8 +32,22 @@ namespace All_Things_Evil
         {
             try
             {
+                MainGrid.Children.Clear();
                 var sweetStealingView = windowFactory.CreateSweetStealingView();
                 MainGrid.Children.Add(sweetStealingView);
+            }
+            catch (System.Exception exception)
+            {
+            }
+        }
+
+        private void FightingGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainGrid.Children.Clear();
+                var fightingGameWindow = windowFactory.CreateFightingGameWindow();
+                MainGrid.Children.Add(fightingGameWindow);
             }
             catch (System.Exception exception)
             {
