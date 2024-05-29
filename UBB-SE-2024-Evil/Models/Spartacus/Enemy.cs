@@ -3,15 +3,17 @@
     public class Enemy
     {
         public string Name { get; set; }
+        public int MaxHealth { get; set; }
         public int Health { get; set; }
         public int Block { get; set; }
         public int MaxEnergy { get; set; }
         public List<Move> Moves { get; set; }
         public int CurrentMoveIndex { get; set; }
 
-        public Enemy(string name, int health, int maxEnergy, List<Move> moves)
+        public Enemy(string name, int maxHealth, int health, int maxEnergy, List<Move> moves)
         {
             Name = name;
+            MaxHealth = maxHealth;
             Health = health;
             Block = 0;
             MaxEnergy = maxEnergy;

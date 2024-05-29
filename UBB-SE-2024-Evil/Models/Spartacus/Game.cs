@@ -11,11 +11,12 @@ namespace UBB_SE_2024_Evil.Models.Spartacus
 
     public class Game
     {
-        private static int STARTING_ENERGY = 30;
-        private static int MAX_ENERGY_INCREASE = 5;
-        private static int STARTING_HEALTH = 100;
-        private static string ENEMY_FILE = "./Models/Spartacus/enemies.json";
+        private static readonly int STARTING_ENERGY = 30;
+        private static readonly int MAX_ENERGY_INCREASE = 5;
+        private static readonly int STARTING_HEALTH = 100;
+        private static readonly string ENEMY_FILE = "./Models/Spartacus/enemies.json";
 
+        public int GameSaveId { get; set; } = -1;
         public Player Player { get; set; }
         public int PlayerHealthAtStartOfLevel { get; set; }
         public Enemy Enemy { get; set; }
@@ -25,10 +26,11 @@ namespace UBB_SE_2024_Evil.Models.Spartacus
 
         public Game(GameSave gameSave)
         {
+            GameSaveId = gameSave.Id;
             Enemies = LoadEnemies();
             RunName = gameSave.Name;
             Level = gameSave.Level;
-            Player = new Player(gameSave.PlayerHealth, gameSave.PlayerEnergy);
+            Player = new Player(STARTING_HEALTH, gameSave.PlayerHealth, gameSave.PlayerEnergy);
             PlayerHealthAtStartOfLevel = gameSave.PlayerHealth;
             Enemy = Enemies[Level];
         }
@@ -65,12 +67,11 @@ namespace UBB_SE_2024_Evil.Models.Spartacus
             }
             if (Enemy.Health <= 0)
             {
-                // bool isGameOver = NextLevel();
-                //if (isGameOver)
-                //{
-                //    return Result.WIN;
-                //}
-                return Result.WIN;
+                bool isGameOver = NextLevel();
+                if (isGameOver)
+                {
+                    return Result.WIN;
+                }
             }
             return Result.CONTINUE;
         }
@@ -79,6 +80,7 @@ namespace UBB_SE_2024_Evil.Models.Spartacus
         {
             return new GameSave
             {
+                Id = GameSaveId,
                 Name = RunName,
                 Level = Level,
                 PlayerHealth = PlayerHealthAtStartOfLevel,
@@ -89,8 +91,10 @@ namespace UBB_SE_2024_Evil.Models.Spartacus
         public void Reset()
         {
             Level = 0;
-            Player = new Player(STARTING_HEALTH, STARTING_ENERGY);
+            Player = new Player(STARTING_HEALTH, STARTING_HEALTH, STARTING_ENERGY);
             PlayerHealthAtStartOfLevel = STARTING_HEALTH;
+            Enemies = LoadEnemies();
+
             Enemy = Enemies[Level];
         }
 

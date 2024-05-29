@@ -1,14 +1,14 @@
-﻿using All_Things_Evil.Validators;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using All_Things_Evil.Validators;
 using All_Things_Evil.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using NuGet.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UBB_SE_2024_Evil.Controllers;
 
 namespace All_Things_Evil.Views.WindowFactory
@@ -45,6 +45,10 @@ namespace All_Things_Evil.Views.WindowFactory
             var fightingGameViewModel = ServiceProvider.GetRequiredService<IFightingGameViewModel>();
             return new FightingGameView(fightingGameViewModel);
         }
+        public FightingGameWinView CreateFightingGameWinWindow()
+        {
+            return new FightingGameWinView();
+        }
 
         public SaveSelectGameView CreateSaveSelectGameWindow()
         {
@@ -53,5 +57,9 @@ namespace All_Things_Evil.Views.WindowFactory
         }
 
        
+        public FightingGameLoseView CreateFightingGameLoseWindow()
+        {
+            return new FightingGameLoseView();
+        }
     }
 }

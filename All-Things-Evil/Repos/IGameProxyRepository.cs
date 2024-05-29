@@ -6,7 +6,7 @@ namespace All_Things_Evil.Repos
     {
         Task<List<GameSave>> GetGameSaves(int userId);
         Task<GameSave> LoadSave(int id);
-        Task<GameSave> NewSave(string runName);
+        Task<GameSave> NewSave(GameSave runName);
         void SaveGame(GameSave gameSave);
     }
 }
