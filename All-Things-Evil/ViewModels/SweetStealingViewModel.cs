@@ -28,5 +28,9 @@ namespace All_Things_Evil.ViewModels
         {
             return windowFactory.CreateFightingGameWindow();
         }
+        public SaveSelectGameView CreateSaveSelectGameWindow()
+        {
+            return windowFactory.CreateSaveSelectGameWindow();
+        }
     }
 }

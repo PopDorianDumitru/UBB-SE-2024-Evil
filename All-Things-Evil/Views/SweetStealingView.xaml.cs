@@ -59,8 +59,8 @@ namespace All_Things_Evil.Views
         {
             try
             {
-                var fightingGameWindow = sweetStealingViewModel.CreateFightingGameWindow();
-                MainContentControl.Content = fightingGameWindow;
+                var saveSelectGameWindow = sweetStealingViewModel.CreateSaveSelectGameWindow();
+                MainContentControl.Content = saveSelectGameWindow;
             }
             catch (System.Exception exception)
             {

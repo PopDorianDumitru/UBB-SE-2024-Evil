@@ -6,5 +6,6 @@
         SubscriptionServiceView CreateSubscriptionWindow();
         SweetStealingView CreateSweetStealingView();
         FightingGameView CreateFightingGameWindow();
+        SaveSelectGameView CreateSaveSelectGameWindow();
     }
 }

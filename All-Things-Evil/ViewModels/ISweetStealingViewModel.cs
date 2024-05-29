@@ -7,5 +7,6 @@ namespace All_Things_Evil.ViewModels
         ScamBotsView CreateScamBotsWindow();
         SubscriptionServiceView CreateSubscriptionWindow();
         FightingGameView CreateFightingGameWindow();
+        SaveSelectGameView CreateSaveSelectGameWindow();
     }
 }

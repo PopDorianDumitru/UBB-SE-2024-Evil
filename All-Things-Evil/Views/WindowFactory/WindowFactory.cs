@@ -46,6 +46,12 @@ namespace All_Things_Evil.Views.WindowFactory
             return new FightingGameView(fightingGameViewModel);
         }
 
+        public SaveSelectGameView CreateSaveSelectGameWindow()
+        {
+            var saveSelectGameViewModel = ServiceProvider.GetRequiredService<ISaveSelectGameViewModel>();
+            return new SaveSelectGameView(saveSelectGameViewModel);
+        }
+
        
     }
 }
