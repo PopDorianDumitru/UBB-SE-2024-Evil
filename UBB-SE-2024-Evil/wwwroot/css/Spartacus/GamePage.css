@@ -97,3 +97,16 @@ p{
     width: 70px;
     height: 70px;
 }
+
+.details{
+    display: flex;
+    flex-direction: row;
+    gap: 1cm;
+}
+
+.lower_layout{
+    display: flex;
+    flex-direction: row;
+    margin-left: 230px;
+    gap: 2cm;
+}

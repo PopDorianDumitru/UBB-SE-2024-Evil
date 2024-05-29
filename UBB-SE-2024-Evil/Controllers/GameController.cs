@@ -125,7 +125,6 @@ namespace UBB_SE_2024_Evil.Controllers
         // Save game endpoint
         // Saves the current game state
         [HttpPatch]
-        [ValidateAntiForgeryToken]
         public void SaveGame()
         {
             GameSave gameSave = Game.GetGameSave();

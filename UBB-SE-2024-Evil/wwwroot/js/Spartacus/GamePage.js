@@ -1,4 +1,12 @@
 ﻿window.onload = () => {
+    $('#save_button').click(() => {
+        $.ajax({
+            url: '/Game/SaveGame',
+            type: 'PATCH',
+            success: function (response) {
+            }
+        });
+    })
     $('#moveForm').submit((e) => {
         e.preventDefault();
 
