@@ -17,10 +17,8 @@ namespace All_Things_Evil.Repos
         {
         }
 
-        public async Task<List<GameSave>> GetGameSaves(int userId)
+        public async Task<List<GameSave>> GetGameSaves()
         {
-            var json = JsonSerializer.Serialize(userId);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(SERVER_URL + "/api/GameSaves");
@@ -29,8 +27,8 @@ namespace All_Things_Evil.Repos
                     throw new Exception("Error: " + response.ReasonPhrase);
                 }
                 var responseString = await response.Content.ReadAsStringAsync();
-                List<GameSave> gameSaves = JsonSerializer.Deserialize<List<GameSave>>(responseString);
-                return gameSaves;
+                IEnumerable<GameSave> gameSaves = JsonSerializer.Deserialize<IEnumerable<GameSave>>(responseString);
+                return gameSaves.ToList();
             }
         }
 
@@ -71,7 +69,7 @@ namespace All_Things_Evil.Repos
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.PostAsync(SERVER_URL + "/api/GameSaves", data);
+                HttpResponseMessage response = await client.PostAsync(SERVER_URL + "/api/GameSaves/", data);
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception("Error: " + response.ReasonPhrase);

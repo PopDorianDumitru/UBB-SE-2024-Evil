@@ -136,7 +136,7 @@ namespace All_Things_Evil.ViewModels
             Player1MaxHealth = gameService.Game.Player.MaxHealth;
             Player2MaxHealth = gameService.Game.Enemy.MaxHealth;
             this.windowFactory = windowFactory;
-            this.gameService.StartNewGame(new Random().Next().ToString());
+            // this.gameService.StartNewGame(new Random().Next().ToString());
         }
         private void DoMove()
         {

@@ -1,5 +1,4 @@
-﻿using All_Things_Evil.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using All_Things_Evil.Views;
 using UBB_SE_2024_Evil.Models.Spartacus;
 
 namespace All_Things_Evil.ViewModels
@@ -20,6 +20,8 @@ namespace All_Things_Evil.ViewModels
         ICommand StartNewGameCommand { get; }
         ICommand ContinueGameCommand { get; }
 
-        FightingGameView CreateFightingGameWindow();
+        FightingGameView CreateFightingGameWindow(string runName);
+        object CreateFightingGameWindow(int selectedIndex);
+        object CreateFightingGameWindowNewSave(string text);
     }
 }

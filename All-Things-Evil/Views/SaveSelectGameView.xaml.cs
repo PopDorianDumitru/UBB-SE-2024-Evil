@@ -1,5 +1,4 @@
-﻿using All_Things_Evil.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using All_Things_Evil.ViewModels;
 
 namespace All_Things_Evil.Views
 {
@@ -21,7 +21,7 @@ namespace All_Things_Evil.Views
     /// </summary>
     public partial class SaveSelectGameView : UserControl
     {
-        private ISaveSelectGameViewModel _viewModel;
+        private ISaveSelectGameViewModel viewModel;
         public SaveSelectGameView()
         {
             InitializeComponent();
@@ -31,16 +31,16 @@ namespace All_Things_Evil.Views
         {
             InitializeComponent();
             DataContext = viewModel;
-            _viewModel = viewModel;
+            this.viewModel = viewModel;
         }
 
         private void StartNewRunButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (!string.IsNullOrEmpty(_viewModel.NewRunName))
+                if (!string.IsNullOrEmpty(viewModel.NewRunName))
                 {
-                    var fightingGameWindow = _viewModel.CreateFightingGameWindow();
+                    var fightingGameWindow = viewModel.CreateFightingGameWindowNewSave(newSaveNameTextBox.Text);
                     MainContentControl.Content = fightingGameWindow;
                 }
             }
@@ -53,9 +53,9 @@ namespace All_Things_Evil.Views
         {
             try
             {
-                if (_viewModel.SelectedGameSave != null)
+                if (viewModel.SelectedGameSave != null)
                 {
-                    var fightingGameWindow = _viewModel.CreateFightingGameWindow();
+                    var fightingGameWindow = viewModel.CreateFightingGameWindow(selectedSaveComboBox.SelectedIndex);
                     MainContentControl.Content = fightingGameWindow;
                 }
             }
