@@ -31,7 +31,6 @@ namespace All_Things_Evil.Services
         public async void StartNewGame(string runName)
         {
             GameSave newSave = new GameSave(runName);
-            newSave.Id = new Random().Next();
             Task<GameSave> gameSaveTask = gameProxyRepository.NewSave(newSave);
             GameSave gameSave = await gameSaveTask;
             game = new Game(gameSave);

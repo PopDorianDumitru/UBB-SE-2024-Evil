@@ -27,7 +27,7 @@ namespace UBB_SE_2024_Evil.Models.Spartacus
             Level = 0;
             PlayerHealth = STARTING_HEALTH;
             PlayerEnergy = 30;
-        }
+        }   
 
         public GameSave(int id, int level, string name, int playerHealth, int playerEnergy)
         {

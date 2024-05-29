@@ -95,7 +95,7 @@ namespace All_Things_Evil.ViewModels
             Player1Energy = gameService.Game.Player.Energy;
             Player2Energy = gameService.Game.Enemy.MaxEnergy;
             _windowFactory = windowFactory;
-            _gameService.StartNewGame("Test5");
+            _gameService.StartNewGame("Test7");
 
         }
 
