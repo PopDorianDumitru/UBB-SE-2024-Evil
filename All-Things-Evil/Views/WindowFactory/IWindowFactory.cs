@@ -6,5 +6,7 @@
         SubscriptionServiceView CreateSubscriptionWindow();
         SweetStealingView CreateSweetStealingView();
         FightingGameView CreateFightingGameWindow();
+        FightingGameWinView CreateFightingGameWinWindow();
+        FightingGameLoseView CreateFightingGameLoseWindow();
     }
 }

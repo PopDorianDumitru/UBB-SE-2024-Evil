@@ -12,13 +12,18 @@ namespace All_Things_Evil.ViewModels
     public class FightingGameViewModel : INotifyPropertyChanged, IFightingGameViewModel
     {
         private readonly IGameService _gameService;
-        public IWindowFactory _windowFactory;
+        private IWindowFactory _windowFactory;
         private int _player1Health;
         private int _player2Health;
         private int _player1Damage;
         private int _player1Block;
         private int _player1Energy;
         private int _player2Energy;
+
+        public IWindowFactory GetWindowFactory()
+        {
+            return  _windowFactory;
+        }
 
         public int Player1Health
         {
@@ -109,7 +114,8 @@ namespace All_Things_Evil.ViewModels
                 Player1Health = _gameService.Game.Player.Health;
                 if (result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
                 {
-                    MessageBox.Show("You win!");
+                    
+                    OnDisplayWinWindow();
                     _gameService.MoveToNextLevel();
                     Player1Health = _gameService.Game.PlayerHealthAtStartOfLevel;
                     Player2Health = _gameService.Game.Enemy.Health;
@@ -118,7 +124,7 @@ namespace All_Things_Evil.ViewModels
                 }
                 else if (result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
                 {
-                    MessageBox.Show("You lose!");
+                   OnDisplayLoseWindow();
                 }
             }
             catch (System.Exception e)
@@ -148,6 +154,16 @@ namespace All_Things_Evil.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected virtual void OnDisplayWinWindow()
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DisplayWinWindow"));
+        }
+
+        protected virtual void OnDisplayLoseWindow()
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DisplayLoseWindow"));
         }
     }
 
