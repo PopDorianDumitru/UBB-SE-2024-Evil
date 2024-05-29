@@ -1,0 +1,27 @@
+﻿@model UBB_SE_2024_Evil.Models.Spartacus.Game
+
+<!-- This is a partial view -->
+
+<div class="player2">
+    <div class="circle">
+        <p>Energy: @Model.Player.Energy</p>
+    </div>
+    <div class="health-bar-container">
+        <div class="health-bar" id="player-health-bar"></div>
+    </div>
+    <img class="fighter2" src="~/Resources/Spartacus/fighter2.png" />
+</div>
+<div class="player1">
+    <div class="circle">
+        <p>Energy: @Model.Enemy.MaxEnergy</p>
+    </div>
+    <div class="health-bar-container">
+        <div class="health-bar" id="enemy-health-bar"></div>
+    </div>
+    <img class="fighter1" src="~/Resources/Spartacus/fighter1.png" />
+</div>
+
+<script>
+    $('#player-health-bar').css('width', (@Model.Player.Health / @Model.Player.MaxHealth * 100) + '%');
+    $('#enemy-health-bar').css('width', (@Model.Enemy.Health / @Model.Enemy.MaxHealth * 100) + '%');
+</script>

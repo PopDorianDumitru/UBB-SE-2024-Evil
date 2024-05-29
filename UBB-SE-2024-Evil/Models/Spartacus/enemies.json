@@ -1,6 +1,7 @@
 ﻿[
   {
     "Name": "Goblin",
+    "MaxHealth": 50,
     "Health": 50,
     "Block": 0,
     "MaxEnergy": 20,
@@ -22,6 +23,7 @@
   },
   {
     "Name": "Orc",
+    "MaxHealth": 100,
     "Health": 100,
     "Block": 0,
     "MaxEnergy": 30,
@@ -43,6 +45,7 @@
   },
   {
     "Name": "Troll",
+    "MaxHealth": 200,
     "Health": 200,
     "Block": 0,
     "MaxEnergy": 40,
