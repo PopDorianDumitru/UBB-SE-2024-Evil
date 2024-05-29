@@ -1,13 +1,13 @@
-﻿using All_Things_Evil.Controllers;
+﻿using System.Configuration;
+using System.Data;
+using System.Windows;
+using All_Things_Evil.Controllers;
 using All_Things_Evil.Repos;
 using All_Things_Evil.Services;
 using All_Things_Evil.Validators;
 using All_Things_Evil.ViewModels;
 using All_Things_Evil.Views.WindowFactory;
 using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
-using System.Data;
-using System.Windows;
 using UBB_SE_2024_Evil.Controllers;
 
 namespace All_Things_Evil
@@ -48,5 +48,4 @@ namespace All_Things_Evil
             window.Show();
         }
     }
-
 }

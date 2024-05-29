@@ -1,5 +1,4 @@
-﻿using All_Things_Evil.Views.WindowFactory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using All_Things_Evil.Views.WindowFactory;
 
 namespace All_Things_Evil
 {

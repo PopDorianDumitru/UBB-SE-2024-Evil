@@ -1,11 +1,11 @@
-﻿using All_Things_Evil.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using All_Things_Evil.Services;
 using UBB_SE_2024_Evil.Models.Spartacus;
 
 namespace All_Things_Evil.Repos
@@ -81,6 +81,5 @@ namespace All_Things_Evil.Repos
                 return gameSave;
             }
         }
-
     }
 }
