@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using All_Things_Evil.Services;
 using All_Things_Evil.Views.WindowFactory;
+using Humanizer;
 using UBB_SE_2024_Evil.Models.Spartacus;
 
 namespace All_Things_Evil.ViewModels
@@ -11,7 +12,7 @@ namespace All_Things_Evil.ViewModels
     public class FightingGameViewModel : INotifyPropertyChanged, IFightingGameViewModel
     {
         private readonly IGameService _gameService;
-        private readonly IWindowFactory _windowFactory;
+        public IWindowFactory _windowFactory;
         private int _player1Health;
         private int _player2Health;
         private int _player1Damage;
@@ -104,7 +105,7 @@ namespace All_Things_Evil.ViewModels
                 Player1Health = _gameService.Game.Player.Health;
                 if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
                 {
-                    MessageBox.Show("You win this level!");
+                    MessageBox.Show("You win!");
                     _gameService.MoveToNextLevel();
                     Player1Health = _gameService.Game.PlayerHealthAtStartOfLevel;
                     Player2Health = _gameService.Game.Enemy.Health;

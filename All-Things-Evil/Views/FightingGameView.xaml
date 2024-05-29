@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:All_Things_Evil.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="MainGrid">
         <!-- Background Image -->
         <Image Source="https://t4.ftcdn.net/jpg/06/34/46/15/240_F_634461501_60hsVi6ickrduHxCjV3KRApdH96UYhNg.jpg" Stretch="Fill" />
         <Image Source="../Resources/Images/main-fight-background.jpg" Stretch="Fill" />
