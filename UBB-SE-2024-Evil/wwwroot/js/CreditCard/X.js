@@ -1,14 +1,14 @@
 ﻿window.onload = () => {
     // Add click event listener to the pay button
-    document.getElementById('payButton').addEventListener('click', () => {
+    $('#payButton').click(() => {
         // Clear any previous error messages
         clearErrors();
 
         // Gather input values
-        const creditCardHolder = document.getElementById('personName').value.trim();
-        const creditCardNumber = document.getElementById('cardNumber').value.trim();
-        const expirationDate = document.getElementById('expiry').value.trim();
-        const cvv = document.getElementById('cvv').value.trim();
+        const creditCardHolder = $('#personName').val().trim();
+        const creditCardNumber = $('#cardNumber').val().trim();
+        const expirationDate = $('#expiry').val().trim();
+        const cvv = $('#cvv').val().trim();
 
         // Validate inputs
         let isValid = true;
@@ -42,9 +42,11 @@
                 Cvv: cvv
             };
 
+            const urlBase = window.location.origin;
+
             $.ajax({
                 type: 'POST',
-                url: 'api/CreditCards', 
+                url: `${urlBase}/api/CreditCards`,
                 data: JSON.stringify(data),
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
@@ -59,8 +61,6 @@
             });
         }
     });
-
-    console.log('Page loaded');
 };
 function showError(fieldId, message) {
     const field = document.getElementById(fieldId);

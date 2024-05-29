@@ -25,10 +25,10 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CreditCard>>> GetCreditCard()
         {
-          if (_context.CreditCard == null)
-          {
-              return NotFound();
-          }
+            if (_context.CreditCard == null)
+            {
+                return NotFound();
+            }
             return await _context.CreditCard.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CreditCard>> GetCreditCard(int id)
         {
-          if (_context.CreditCard == null)
-          {
-              return NotFound();
-          }
+            if (_context.CreditCard == null)
+            {
+                return NotFound();
+            }
             var creditCard = await _context.CreditCard.FindAsync(id);
 
             if (creditCard == null)
@@ -86,10 +86,10 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpPost]
         public async Task<ActionResult<CreditCard>> PostCreditCard(CreditCard creditCard)
         {
-          if (_context.CreditCard == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.CreditCard'  is null.");
-          }
+            if (_context.CreditCard == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.CreditCard'  is null.");
+            }
             _context.CreditCard.Add(creditCard);
             await _context.SaveChangesAsync();
 
