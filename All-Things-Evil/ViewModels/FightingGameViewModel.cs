@@ -16,6 +16,8 @@ namespace All_Things_Evil.ViewModels
         private int _player2Health;
         private int _player1Damage;
         private int _player1Block;
+        private int _player1Energy;
+        private int _player2Energy;
 
         public int Player1Health
         {
@@ -57,6 +59,26 @@ namespace All_Things_Evil.ViewModels
             }
         }
 
+        public int Player1Energy
+        {
+            get => _player1Energy;
+            set
+            {
+                _player1Energy = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Player2Energy
+        {
+            get => _player2Energy;
+            set
+            {
+                _player2Energy = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand DoMoveCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -64,10 +86,11 @@ namespace All_Things_Evil.ViewModels
         public FightingGameViewModel(IGameService gameService, IWindowFactory windowFactory)
         {
             _gameService = gameService;
-            DoMoveCommand = new RelayCommand(DoMove);
-            Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
-            Player2Health = gameService.Game.Enemy.Health;
-            _windowFactory = windowFactory;
+            DoMoveCommand = new RelayCommand(DoMove, CanDoMove);
+            Player1Health = 100;
+            Player2Health = 100;
+            Player1Energy = 30;
+            Player2Energy = 30;
         }
 
         private void DoMove()
@@ -88,6 +111,8 @@ namespace All_Things_Evil.ViewModels
                 MessageBox.Show("You lose!");
             }
         }
+
+        private bool CanDoMove() => Player1Damage > 0 && Player1Block > 0;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
