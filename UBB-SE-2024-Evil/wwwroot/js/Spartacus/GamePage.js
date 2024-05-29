@@ -24,7 +24,6 @@
             inputBlock = parseInt($('#inputBlock').val());
         }
 
-
         //Send a PATCH request
         $.ajax({
             url: '/Game/DoMove?damage=' + inputDamage + '&block=' + inputBlock,

@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using UBB_SE_2024_Evil.Data;
 using UBB_SE_2024_Evil.Models.Spartacus;
-using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace UBB_SE_2024_Evil.Controllers
 {
@@ -12,11 +10,11 @@ namespace UBB_SE_2024_Evil.Controllers
     public class GameController : Controller
     {
         public static Game Game { get; set; }
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
         public GameController(ApplicationDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: Game
@@ -24,7 +22,7 @@ namespace UBB_SE_2024_Evil.Controllers
         // Allows the user to select a saved game to load or to create a new game
         public IActionResult Index()
         {
-            List<GameSave> gameSaves = _context.GameSave.ToList();
+            List<GameSave> gameSaves = context.GameSave.ToList();
 
             return View(gameSaves);
         }
@@ -82,10 +80,10 @@ namespace UBB_SE_2024_Evil.Controllers
         {
             if (gameSaveId <= 0)
             {
-                // TODO: Handle error
+                throw new Exception("Invalid game save ID.");
             }
 
-            GameSave gameSave = _context.GameSave.FirstOrDefault(gs => gs.Id == gameSaveId);
+            GameSave gameSave = context.GameSave.FirstOrDefault(gameSave => gameSave.Id == gameSaveId);
 
             Game = new Game(gameSave);
 
@@ -101,9 +99,9 @@ namespace UBB_SE_2024_Evil.Controllers
         {
             if (runName.IsNullOrEmpty())
             {
-                // TODO: Handle error
+                throw new Exception("Run name cannot be empty.");
             }
-            if (_context.GameSave.FirstOrDefault(g => g.Name == runName) != null)
+            if (context.GameSave.FirstOrDefault(gameSave => gameSave.Name == runName) != null)
             {
                 ModelState.AddModelError("runName", "A game save with this name already exists.");
                 return RedirectToAction(nameof(DuplicateAdded));
@@ -111,11 +109,11 @@ namespace UBB_SE_2024_Evil.Controllers
 
             GameSave gameSave = new GameSave(runName);
 
-            _context.GameSave.Add(gameSave);
-            _context.SaveChanges();
+            context.GameSave.Add(gameSave);
+            context.SaveChanges();
 
             // Get the game save from the database to ensure that the ID is set
-            gameSave = _context.GameSave.FirstOrDefault(g => g.Name == runName);
+            gameSave = context.GameSave.FirstOrDefault(gameSave => gameSave.Name == runName);
             Game = new Game(gameSave);
 
             return RedirectToAction(nameof(GamePage));
@@ -128,8 +126,8 @@ namespace UBB_SE_2024_Evil.Controllers
         public void SaveGame()
         {
             GameSave gameSave = Game.GetGameSave();
-            _context.GameSave.Update(gameSave);
-            _context.SaveChanges();
+            context.GameSave.Update(gameSave);
+            context.SaveChanges();
         }
 
         // PATCH: Game/DoMove
@@ -144,7 +142,7 @@ namespace UBB_SE_2024_Evil.Controllers
 
             if (move.EnergyCost > Game.Player.Energy)
             {
-                // TODO: Handle error
+                throw new Exception("Not enough energy to perform this move.");
             }
 
             Result result = Game.DoMove(move);
@@ -154,8 +152,8 @@ namespace UBB_SE_2024_Evil.Controllers
             }
 
             GameSave gameSave = Game.GetGameSave();
-            _context.GameSave.Remove(gameSave);
-            _context.SaveChanges();
+            context.GameSave.Remove(gameSave);
+            context.SaveChanges();
 
             if (result == Result.WIN)
             {

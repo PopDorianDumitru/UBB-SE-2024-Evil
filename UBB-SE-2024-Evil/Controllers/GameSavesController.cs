@@ -14,33 +14,33 @@ namespace UBB_SE_2024_Evil.Controllers
     [ApiController]
     public class GameSavesController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
         public GameSavesController(ApplicationDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: api/GameSaves
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GameSave>>> GetGameSave()
         {
-            if (_context.GameSave == null)
+            if (context.GameSave == null)
             {
                 return NotFound();
             }
-            return await _context.GameSave.ToListAsync();
+            return await context.GameSave.ToListAsync();
         }
 
         // GET: api/GameSaves/5
         [HttpGet("{id}")]
         public async Task<ActionResult<GameSave>> GetGameSave(int id)
         {
-            if (_context.GameSave == null)
+            if (context.GameSave == null)
             {
                 return NotFound();
             }
-            var gameSave = await _context.GameSave.FindAsync(id);
+            var gameSave = await context.GameSave.FindAsync(id);
 
             if (gameSave == null)
             {
@@ -60,11 +60,11 @@ namespace UBB_SE_2024_Evil.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(gameSave).State = EntityState.Modified;
+            context.Entry(gameSave).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -86,13 +86,12 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpPost]
         public async Task<ActionResult<GameSave>> PostGameSave(GameSave gameSave)
         {
-            if (_context.GameSave == null)
+            if (context.GameSave == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.GameSave'  is null.");
             }
-            _context.GameSave.Add(gameSave);
-            await _context.SaveChangesAsync();
-
+            context.GameSave.Add(gameSave);
+            await context.SaveChangesAsync();
 
             return CreatedAtAction("GetGameSave", new { id = gameSave.Id }, gameSave);
         }
@@ -101,25 +100,25 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGameSave(int id)
         {
-            if (_context.GameSave == null)
+            if (context.GameSave == null)
             {
                 return NotFound();
             }
-            var gameSave = await _context.GameSave.FindAsync(id);
+            var gameSave = await context.GameSave.FindAsync(id);
             if (gameSave == null)
             {
                 return NotFound();
             }
 
-            _context.GameSave.Remove(gameSave);
-            await _context.SaveChangesAsync();
+            context.GameSave.Remove(gameSave);
+            await context.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool GameSaveExists(int id)
         {
-            return (_context.GameSave?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (context.GameSave?.Any(element => element.Id == id)).GetValueOrDefault();
         }
     }
 }
