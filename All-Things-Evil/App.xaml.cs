@@ -38,7 +38,7 @@ namespace All_Things_Evil
             services.AddTransient<IFightingGameViewModel, FightingGameViewModel>();
             services.AddSingleton<IGameService, GameService>();
             services.AddSingleton<IGameProxyRepository, GameProxyRepository>();
-            services.AddSingleton<ISaveSelectGameViewModel, SaveSelectGameViewModel>();
+            services.AddTransient<ISaveSelectGameViewModel, SaveSelectGameViewModel>();
         }
 
         protected override void OnStartup(StartupEventArgs e)

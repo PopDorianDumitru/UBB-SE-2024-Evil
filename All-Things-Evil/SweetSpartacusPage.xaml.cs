@@ -46,7 +46,7 @@ namespace All_Things_Evil
             try
             {
                 MainGrid.Children.Clear();
-                var fightingGameWindow = windowFactory.CreateFightingGameWindow();
+                var fightingGameWindow = windowFactory.CreateSaveSelectGameWindow();
                 MainGrid.Children.Add(fightingGameWindow);
             }
             catch (System.Exception exception)

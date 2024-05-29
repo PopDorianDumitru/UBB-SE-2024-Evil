@@ -58,10 +58,10 @@ namespace All_Things_Evil.Services
             GameSave gameSave = game.GetGameSave();
             gameProxyRepository.SaveGame(gameSave);
         }
-        public async void GetGameSaves(int userId)
+        public async Task GetGameSaves()
         {
-            Task<List<GameSave>> gameSavesTask = gameProxyRepository.GetGameSaves(userId);
-            gameSaves = await gameSavesTask;
+            List<GameSave> gameSavesTask = await gameProxyRepository.GetGameSaves();
+            gameSaves = gameSavesTask;
         }
 
         public bool MoveToNextLevel()

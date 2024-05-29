@@ -1,7 +1,4 @@
-﻿using All_Things_Evil.Services;
-using All_Things_Evil.Views;
-using All_Things_Evil.Views.WindowFactory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -11,52 +8,56 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using All_Things_Evil.Services;
+using All_Things_Evil.Views;
+using All_Things_Evil.Views.WindowFactory;
 using UBB_SE_2024_Evil.Models.Spartacus;
 
 namespace All_Things_Evil.ViewModels
 {
     public class SaveSelectGameViewModel : INotifyPropertyChanged, ISaveSelectGameViewModel
     {
-        private readonly IGameService _gameService;
-        private readonly IWindowFactory _windowFactory;
-        private GameSave _selectedGameSave;
-        private string _newRunName;
+        private readonly IGameService gameService;
+        private readonly IWindowFactory windowFactory;
+        private GameSave selectedGameSave;
+        private string newRunName;
 
         public SaveSelectGameViewModel(IGameService gameService, IWindowFactory windowFactory)
         {
-            _gameService = gameService;
-            _windowFactory = windowFactory;
+            this.gameService = gameService;
+            this.gameService.GetGameSaves();
+            this.windowFactory = windowFactory;
             GameSaves = new ObservableCollection<GameSave>();
             LoadGameSavesCommand = new RelayCommand(LoadGameSaves);
             StartNewGameCommand = new RelayCommand(StartNewGame);
             ContinueGameCommand = new RelayCommand(ContinueGame);
-            //LoadGameSaves();
+            LoadGameSaves();
         }
 
         public ObservableCollection<GameSave> GameSaves { get; }
 
         public GameSave SelectedGameSave
         {
-            get => _selectedGameSave;
+            get => selectedGameSave;
             set
             {
-                if (_selectedGameSave != value)
+                if (selectedGameSave != value)
                 {
-                    _selectedGameSave = value;
+                    selectedGameSave = value;
                     OnPropertyChanged();
-                    //LoadSelectedGame();
+                    // LoadSelectedGame();
                 }
             }
         }
 
         public string NewRunName
         {
-            get => _newRunName;
+            get => newRunName;
             set
             {
-                if (_newRunName != value)
+                if (newRunName != value)
                 {
-                    _newRunName = value;
+                    newRunName = value;
                     OnPropertyChanged();
                 }
             }
@@ -72,12 +73,16 @@ namespace All_Things_Evil.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void LoadGameSaves()
+        private async void LoadGameSaves()
         {
             int userId = 1; // Assume this is retrieved from the user context
-            _gameService.GetGameSaves(userId);
+            await gameService.GetGameSaves();
             GameSaves.Clear();
-            foreach (var save in _gameService.GameSaves)
+            if (gameService.GameSaves == null)
+            {
+                return;
+            }
+            foreach (var save in gameService.GameSaves)
             {
                 GameSaves.Add(save);
             }
@@ -85,36 +90,48 @@ namespace All_Things_Evil.ViewModels
 
         private void StartNewGame()
         {
-            if (string.IsNullOrEmpty(_newRunName))
+            if (string.IsNullOrEmpty(newRunName))
             {
                 MessageBox.Show("Please enter a name for the new run.", "Missing Run Name", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            //string newRunName = "New Run " + (GameSaves.Count + 1); // Example run name
-            _gameService.StartNewGame(NewRunName);
-            //LoadGameSaves();
+            // string newRunName = "New Run " + (GameSaves.Count + 1); // Example run name
+            gameService.StartNewGame(NewRunName);
+            // LoadGameSaves();
         }
 
         private void LoadSelectedGame()
         {
             if (SelectedGameSave != null)
             {
-                _gameService.LoadGame(SelectedGameSave);
+                gameService.LoadGame(SelectedGameSave);
             }
         }
         private void ContinueGame()
         {
-            if(SelectedGameSave == null)
+            if (SelectedGameSave == null)
             {
                 MessageBox.Show("Please select a game save to continue.", "No Game Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            _gameService.SaveGame();
+            gameService.SaveGame();
         }
 
-        public FightingGameView CreateFightingGameWindow()
+        public FightingGameView CreateFightingGameWindow(string selectedSave)
         {
-            return _windowFactory.CreateFightingGameWindow();
+            return windowFactory.CreateFightingGameWindow();
+        }
+
+        public object CreateFightingGameWindow(int selectedIndex)
+        {
+            gameService.LoadGame(GameSaves[selectedIndex]);
+            return windowFactory.CreateFightingGameWindow();
+        }
+
+        public object CreateFightingGameWindowNewSave(string saveName)
+        {
+            // gameService.StartNewGame(saveName);
+            return windowFactory.CreateFightingGameWindow();
         }
     }
 }

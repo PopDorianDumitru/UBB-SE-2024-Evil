@@ -29,7 +29,11 @@ namespace All_Things_Evil.Views
 
         public void Exit_Button_Click(object sender, RoutedEventArgs eventArguments)
         {
-            ExitButtonClicked?.Invoke(this, EventArgs.Empty);
+            var parent = this.Parent as Panel;
+            if (parent != null)
+            {
+                parent.Children.Remove(this);
+            }
         }
     }
 }

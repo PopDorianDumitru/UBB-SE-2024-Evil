@@ -9,7 +9,7 @@ namespace All_Things_Evil.Services
 
         Result DoMove(int damage, int block);
         GameSave GetGameSave();
-        void GetGameSaves(int userId);
+        Task GetGameSaves();
         void LoadGame(GameSave gameSave);
         void LoadGame(int id);
         bool MoveToNextLevel();
