@@ -87,28 +87,38 @@ namespace All_Things_Evil.ViewModels
         {
             _gameService = gameService;
             DoMoveCommand = new RelayCommand(DoMove, CanDoMove);
-            Player1Health = 100;
-            Player2Health = 100;
-            Player1Energy = 30;
-            Player2Energy = 30;
+            Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
+            Player2Health = gameService.Game.Enemy.Health;
+            Player1Energy = gameService.Game.Player.Energy; 
+            Player2Energy = gameService.Game.Enemy.MaxEnergy;
+            _windowFactory = windowFactory;
+
         }
 
         private void DoMove()
         {
-            var result = _gameService.DoMove(Player1Damage, Player1Block);
+            try { 
+                var result = _gameService.DoMove(Player1Damage, Player1Block);
             
-            Player2Health = _gameService.Game.Enemy.Health;
-            Player1Health = _gameService.Game.Player.Health;
-            if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
-            {
-                MessageBox.Show("You win this level!");
-                _gameService.MoveToNextLevel();
-                Player1Health = _gameService.Game.PlayerHealthAtStartOfLevel;
                 Player2Health = _gameService.Game.Enemy.Health;
+                Player1Health = _gameService.Game.Player.Health;
+                if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
+                {
+                    MessageBox.Show("You win this level!");
+                    _gameService.MoveToNextLevel();
+                    Player1Health = _gameService.Game.PlayerHealthAtStartOfLevel;
+                    Player2Health = _gameService.Game.Enemy.Health;
+                    Player1Energy = _gameService.Game.Player.Energy;
+                    Player2Energy = _gameService.Game.Enemy.MaxEnergy;
+                }
+                else if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
+                {
+                    MessageBox.Show("You lose!");
+                }
             }
-            else if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
+            catch (System.Exception e)
             {
-                MessageBox.Show("You lose!");
+                MessageBox.Show(e.Message);
             }
         }
 

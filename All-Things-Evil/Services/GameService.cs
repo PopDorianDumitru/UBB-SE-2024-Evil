@@ -62,6 +62,10 @@ namespace All_Things_Evil.Services
 
         public Result DoMove(int damage, int block)
         {
+            if(damage + block > game.Player.Energy)
+            {
+                throw new Exception("Player does not have enough energy to perform this move");
+            }
             Move playerMove = new Move(damage, block);
 
             return game.DoMove(playerMove);
