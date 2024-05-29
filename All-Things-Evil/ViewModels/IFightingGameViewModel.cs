@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using All_Things_Evil.Views.WindowFactory;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace All_Things_Evil.ViewModels
@@ -12,6 +13,8 @@ namespace All_Things_Evil.ViewModels
         int Player2Health { get; set; }
         int Player1Energy { get; set; }
         int Player2Energy { get; set; }
+        IWindowFactory GetWindowFactory();
+
 
         event PropertyChangedEventHandler PropertyChanged;
     }

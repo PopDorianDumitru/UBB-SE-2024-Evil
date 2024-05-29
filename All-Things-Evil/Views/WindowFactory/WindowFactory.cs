@@ -48,8 +48,12 @@ namespace All_Things_Evil.Views.WindowFactory
         
         public FightingGameWinView CreateFightingGameWinWindow()
         {
-            var fightingGameViewModel = ServiceProvider.GetRequiredService<IFightingGameViewModel>();
-            return new FightingGameWinView(fightingGameViewModel);
+            return new FightingGameWinView();
+        }
+
+        public FightingGameLoseView CreateFightingGameLoseWindow()
+        {
+            return new FightingGameLoseView();
         }
     }
 }

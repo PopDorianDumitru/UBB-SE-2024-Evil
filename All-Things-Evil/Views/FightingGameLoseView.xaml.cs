@@ -1,5 +1,4 @@
-﻿using All_Things_Evil.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,22 +16,20 @@ using System.Windows.Shapes;
 namespace All_Things_Evil.Views
 {
     /// <summary>
-    /// Interaction logic for FightingGameWinView.xaml
+    /// Interaction logic for FightingGameLoseView.xaml
     /// </summary>
-    public partial class FightingGameWinView : UserControl
+    public partial class FightingGameLoseView : UserControl
     {
-        public FightingGameWinView()
+        public event EventHandler ExitButtonClicked;
+
+        public FightingGameLoseView()
         {
             InitializeComponent();
         }
 
-        public void Continue_Button_Click(object sender, RoutedEventArgs eventArguments)
+        public void Exit_Button_Click(object sender, RoutedEventArgs eventArguments)
         {
-            var parent = this.Parent as Panel;
-            if (parent != null)
-            {
-                parent.Children.Remove(this);
-            }
+            ExitButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -20,7 +20,18 @@ namespace All_Things_Evil.Views
 
         private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            UpdateUI();
+            if (e.PropertyName == "DisplayWinWindow")
+            {
+                DisplayWinWindow();
+            }
+            else if (e.PropertyName == "DisplayLoseWindow")
+            {
+                DisplayLoseWindow();
+            }
+            else
+            {
+                UpdateUI();
+            }
         }
 
         private void UpdateUI()
@@ -46,5 +57,35 @@ namespace All_Things_Evil.Views
                 MessageBox.Show("Please enter valid numbers for damage and block.");
             }
         }
+
+        private void DisplayWinWindow()
+        {
+            var windowFactory = _viewModel.GetWindowFactory();
+            var winWindow = windowFactory.CreateFightingGameWinWindow();
+            MainGrid.Children.Add(winWindow);
+        }
+
+        private void DisplayLoseWindow()
+        {
+            var windowFactory = _viewModel.GetWindowFactory();
+            var loseWindow = windowFactory.CreateFightingGameLoseWindow();
+            loseWindow.ExitButtonClicked += LoseWindow_ExitButtonClicked;
+            MainGrid.Children.Add(loseWindow);
+        }
+
+        private void LoseWindow_ExitButtonClicked(object sender, EventArgs e)
+        {
+            ExitGame();
+        }
+
+        private void ExitGame()
+        {
+            var parent = this.Parent as Panel;
+            if (parent != null)
+            {
+                parent.Children.Remove(this);
+            }
+        }
+
     }
 }
