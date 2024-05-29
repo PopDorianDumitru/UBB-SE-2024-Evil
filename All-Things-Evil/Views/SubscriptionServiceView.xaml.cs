@@ -1,5 +1,4 @@
-﻿using All_Things_Evil.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using All_Things_Evil.ViewModels;
 
 namespace All_Things_Evil.Views
 {
@@ -40,17 +40,17 @@ namespace All_Things_Evil.Views
             creditCardNumber = CardNumberTextBox.Text.Trim();
             expirationDate = ExpirationDateTextBox.Text.Trim();
             cVV = CVVTextBox.Text.Trim();
-            if(subscriptionServiceViewModel.ValidCreditCardInformation(creditCardNumber, cVV, expirationDate))
+            if (subscriptionServiceViewModel.ValidCreditCardInformation(creditCardNumber, cVV, expirationDate))
             {
                 var result = MessageBox.Show("ok");
                 subscriptionServiceViewModel.SaveCreditCardApi(creditCardHolder, creditCardNumber, cVV, expirationDate);
             }
-            //if ((bool)this.DataContext.GetType().GetMethod("ValidCreditCardInformation").Invoke(this.DataContext, new object[] { creditCardNumber, cVV, expirationDate }) == true)
-            //{
+            // if ((bool)this.DataContext.GetType().GetMethod("ValidCreditCardInformation").Invoke(this.DataContext, new object[] { creditCardNumber, cVV, expirationDate }) == true)
+            // {
             //    var result = MessageBox.Show("ok");
             //    Console.WriteLine("[+] SUCCESSFULLY VALIDATED DATA. PREPARING TO COMMIT TO DATABASE");
             //    this.DataContext.GetType().GetMethod("SaveCreditCardApi").Invoke(this.DataContext, new object[] { creditCardHolder, creditCardNumber, cVV, expirationDate });
-            //}
+            // }
         }
         private void PayButton_MouseEnter(object sender, MouseEventArgs e)
         {

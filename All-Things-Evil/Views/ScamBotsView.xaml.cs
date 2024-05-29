@@ -1,5 +1,4 @@
-﻿using All_Things_Evil.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using All_Things_Evil.ViewModels;
 
 namespace All_Things_Evil.Views
 {
@@ -107,10 +107,9 @@ namespace All_Things_Evil.Views
             string creditCardNumber = TextBoxCreditNr.Text;
             string cvv = TextBoxCVV.Text;
             string expirationDate = TextBoxExpYear.Text;
-            
             try
             {
-                scamBotsViewModel.ValidCreditCardInformation(creditCardNumber,cvv, expirationDate);
+                scamBotsViewModel.ValidCreditCardInformation(creditCardNumber, cvv, expirationDate);
                 scamBotsViewModel.SaveCreditCardApi(name, creditCardNumber, cvv, expirationDate);
             }
             catch (Exception ex)

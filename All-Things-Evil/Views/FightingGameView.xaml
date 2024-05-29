@@ -11,6 +11,17 @@
         <Image Source="https://t4.ftcdn.net/jpg/06/34/46/15/240_F_634461501_60hsVi6ickrduHxCjV3KRApdH96UYhNg.jpg" Stretch="Fill" />
         <Image Source="../Resources/Images/main-fight-background.jpg" Stretch="Fill" />
 
+        <!-- Enemy Name Label -->
+        <Label
+            x:Name="enemyName"
+            Content="OOOOO"
+            FontFamily="Showcard Gothic"
+            FontSize="11"
+            Foreground="#FF301805"
+            Margin="200,32,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+
         <!-- Fighter 1 Energy Label -->
         <Label
             x:Name="energyLabelPlayer1"

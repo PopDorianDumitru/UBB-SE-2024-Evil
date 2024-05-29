@@ -11,76 +11,109 @@ namespace All_Things_Evil.ViewModels
 {
     public class FightingGameViewModel : INotifyPropertyChanged, IFightingGameViewModel
     {
-        private readonly IGameService _gameService;
-        private IWindowFactory _windowFactory;
-        private int _player1Health;
-        private int _player2Health;
-        private int _player1Damage;
-        private int _player1Block;
-        private int _player1Energy;
-        private int _player2Energy;
+        private readonly IGameService gameService;
+        private IWindowFactory windowFactory;
+        private int player1Health;
+        private int player2Health;
+        private int player1Damage;
+        private int player1Block;
+        private int player1Energy;
+        private int player2Energy;
+        private string enemyName;
+        private int player1MaxHealth;
+        private int player2MaxHealth;
 
         public IWindowFactory GetWindowFactory()
         {
-            return  _windowFactory;
+            return windowFactory;
         }
 
         public int Player1Health
         {
-            get => _player1Health;
+            get => player1Health;
             set
             {
-                _player1Health = value;
+                player1Health = value;
                 OnPropertyChanged();
             }
         }
 
         public int Player2Health
         {
-            get => _player2Health;
+            get => player2Health;
             set
             {
-                _player2Health = value;
+                player2Health = value;
                 OnPropertyChanged();
             }
         }
 
         public int Player1Damage
         {
-            get => _player1Damage;
+            get => player1Damage;
             set
             {
-                _player1Damage = value;
+                player1Damage = value;
                 OnPropertyChanged();
             }
         }
 
         public int Player1Block
         {
-            get => _player1Block;
+            get => player1Block;
             set
             {
-                _player1Block = value;
+                player1Block = value;
                 OnPropertyChanged();
             }
         }
 
         public int Player1Energy
         {
-            get => _player1Energy;
+            get => player1Energy;
             set
             {
-                _player1Energy = value;
+                player1Energy = value;
                 OnPropertyChanged();
             }
         }
 
         public int Player2Energy
         {
-            get => _player2Energy;
+            get => player2Energy;
             set
             {
-                _player2Energy = value;
+                player2Energy = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string EnemyName
+        {
+            get => enemyName;
+            set
+            {
+                enemyName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Player1MaxHealth
+        {
+            get => player1MaxHealth;
+            set
+            {
+                player1MaxHealth = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Player2MaxHealth
+        {
+            get => player2MaxHealth;
+            set
+            {
+                player2MaxHealth = value;
                 OnPropertyChanged();
             }
         }
@@ -92,35 +125,37 @@ namespace All_Things_Evil.ViewModels
 
         public FightingGameViewModel(IGameService gameService, IWindowFactory windowFactory)
         {
-            _gameService = gameService;
+            this.gameService = gameService;
             DoMoveCommand = new RelayCommand(DoMove, CanDoMove);
             SaveGameCommand = new RelayCommand(SaveGame);
             Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
             Player2Health = gameService.Game.Enemy.Health;
             Player1Energy = gameService.Game.Player.Energy;
             Player2Energy = gameService.Game.Enemy.MaxEnergy;
-            _windowFactory = windowFactory;
-            _gameService.StartNewGame("Test7");
-
+            EnemyName = gameService.Game.Enemy.Name.Humanize();
+            Player1MaxHealth = gameService.Game.Player.MaxHealth;
+            Player2MaxHealth = gameService.Game.Enemy.MaxHealth;
+            this.windowFactory = windowFactory;
+            this.gameService.StartNewGame("TestDorian");
         }
-
         private void DoMove()
         {
             try
             {
-                var result = _gameService.DoMove(Player1Damage, Player1Block);
+                var result = gameService.DoMove(Player1Damage, Player1Block);
 
-                Player2Health = _gameService.Game.Enemy.Health;
-                Player1Health = _gameService.Game.Player.Health;
+                Player2Health = gameService.Game.Enemy.Health;
+                Player1Health = gameService.Game.Player.Health;
                 if (result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
                 {
-                    
                     OnDisplayWinWindow();
-                    _gameService.MoveToNextLevel();
-                    Player1Health = _gameService.Game.PlayerHealthAtStartOfLevel;
-                    Player2Health = _gameService.Game.Enemy.Health;
-                    Player1Energy = _gameService.Game.Player.Energy;
-                    Player2Energy = _gameService.Game.Enemy.MaxEnergy;
+                    gameService.MoveToNextLevel();
+                    Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
+                    Player2Health = gameService.Game.Enemy.Health;
+                    Player1Energy = gameService.Game.Player.Energy;
+                    Player2Energy = gameService.Game.Enemy.MaxEnergy;
+                    Player1MaxHealth = gameService.Game.Player.MaxHealth;
+                    Player2MaxHealth = gameService.Game.Enemy.MaxHealth;
                 }
                 else if (result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
                 {
@@ -135,7 +170,7 @@ namespace All_Things_Evil.ViewModels
 
         private void SaveGame()
         {
-            _gameService.SaveGame();
+            gameService.SaveGame();
         }
 
         private bool CanDoMove()
@@ -169,18 +204,18 @@ namespace All_Things_Evil.ViewModels
 
     public class RelayCommand : ICommand
     {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
+        private readonly Action execute;
+        private readonly Func<bool> canExecute;
 
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
-            _execute = execute;
-            _canExecute = canExecute;
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
-        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+        public bool CanExecute(object parameter) => canExecute == null || canExecute();
 
-        public void Execute(object parameter) => _execute();
+        public void Execute(object parameter) => execute();
 
         public event EventHandler CanExecuteChanged
         {

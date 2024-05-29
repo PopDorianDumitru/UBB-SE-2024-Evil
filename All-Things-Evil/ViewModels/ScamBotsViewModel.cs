@@ -1,10 +1,10 @@
-﻿using All_Things_Evil.Controllers;
-using All_Things_Evil.Validators;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using All_Things_Evil.Controllers;
+using All_Things_Evil.Validators;
 
 namespace All_Things_Evil.ViewModels
 {

@@ -1,6 +1,6 @@
-﻿using All_Things_Evil.Views.WindowFactory;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Input;
+using All_Things_Evil.Views.WindowFactory;
 
 namespace All_Things_Evil.ViewModels
 {
@@ -13,7 +13,9 @@ namespace All_Things_Evil.ViewModels
         int Player1Health { get; set; }
         int Player2Energy { get; set; }
         IWindowFactory GetWindowFactory();
-
+        string EnemyName { get; set; }
+        int Player1MaxHealth { get; set; }
+        int Player2MaxHealth { get; set; }
         int Player2Health { get; set; }
         ICommand SaveGameCommand { get; }
 
