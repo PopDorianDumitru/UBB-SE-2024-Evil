@@ -136,7 +136,7 @@ namespace All_Things_Evil.ViewModels
             Player1MaxHealth = gameService.Game.Player.MaxHealth;
             Player2MaxHealth = gameService.Game.Enemy.MaxHealth;
             this.windowFactory = windowFactory;
-            this.gameService.StartNewGame("TestDorian");
+            this.gameService.StartNewGame(new Random().Next().ToString());
         }
         private void DoMove()
         {
@@ -146,20 +146,39 @@ namespace All_Things_Evil.ViewModels
 
                 Player2Health = gameService.Game.Enemy.Health;
                 Player1Health = gameService.Game.Player.Health;
-                if (result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
+                if (enemyName != gameService.Game.Enemy.Name)
                 {
-                    OnDisplayWinWindow();
-                    gameService.MoveToNextLevel();
                     Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
                     Player2Health = gameService.Game.Enemy.Health;
                     Player1Energy = gameService.Game.Player.Energy;
                     Player2Energy = gameService.Game.Enemy.MaxEnergy;
                     Player1MaxHealth = gameService.Game.Player.MaxHealth;
                     Player2MaxHealth = gameService.Game.Enemy.MaxHealth;
+                    enemyName = gameService.Game.Enemy.Name;
+                }
+                if (result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
+                {
+                    OnDisplayWinWindow();
+                    gameService.ResetGame();
+                    Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
+                    Player2Health = gameService.Game.Enemy.Health;
+                    Player1Energy = gameService.Game.Player.Energy;
+                    Player2Energy = gameService.Game.Enemy.MaxEnergy;
+                    Player1MaxHealth = gameService.Game.Player.MaxHealth;
+                    Player2MaxHealth = gameService.Game.Enemy.MaxHealth;
+                    enemyName = gameService.Game.Enemy.Name;
                 }
                 else if (result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
                 {
-                   OnDisplayLoseWindow();
+                    OnDisplayLoseWindow();
+                    gameService.ResetGame();
+                    Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
+                    Player2Health = gameService.Game.Enemy.Health;
+                    Player1Energy = gameService.Game.Player.Energy;
+                    Player2Energy = gameService.Game.Enemy.MaxEnergy;
+                    Player1MaxHealth = gameService.Game.Player.MaxHealth;
+                    Player2MaxHealth = gameService.Game.Enemy.MaxHealth;
+                    enemyName = gameService.Game.Enemy.Name;
                 }
             }
             catch (System.Exception e)

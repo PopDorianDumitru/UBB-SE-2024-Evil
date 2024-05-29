@@ -51,16 +51,16 @@
     "MaxEnergy": 40,
     "Moves": [
       {
-        "Damage": 30,
-        "Block": 10
-      },
-      {
-        "Damage": 40,
+        "Damage": 0,
         "Block": 0
       },
       {
         "Damage": 0,
-        "Block": 40
+        "Block": 0
+      },
+      {
+        "Damage": 0,
+        "Block": 0
       }
     ],
     "CurrentMoveIndex": 0

@@ -36,14 +36,10 @@ namespace All_Things_Evil.Views
         }
         private void PayButton_Click(object sender, RoutedEventArgs e)
         {
-            creditCardHolder = NameTextBox.Text.Trim();
-            creditCardNumber = CardNumberTextBox.Text.Trim();
-            expirationDate = ExpirationDateTextBox.Text.Trim();
-            cVV = CVVTextBox.Text.Trim();
-            if (subscriptionServiceViewModel.ValidCreditCardInformation(creditCardNumber, cVV, expirationDate))
+            if (subscriptionServiceViewModel.ValidCreditCardInformation(CardNumberTextBox.Text, CVVTextBox.Text, ExpirationDateTextBox.Text))
             {
                 var result = MessageBox.Show("ok");
-                subscriptionServiceViewModel.SaveCreditCardApi(creditCardHolder, creditCardNumber, cVV, expirationDate);
+                subscriptionServiceViewModel.SaveCreditCardApi(NameTextBox.Text, CardNumberTextBox.Text, CVVTextBox.Text, ExpirationDateTextBox.Text);
             }
             // if ((bool)this.DataContext.GetType().GetMethod("ValidCreditCardInformation").Invoke(this.DataContext, new object[] { creditCardNumber, cVV, expirationDate }) == true)
             // {
