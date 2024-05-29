@@ -30,7 +30,9 @@ namespace All_Things_Evil.Services
         }
         public async void StartNewGame(string runName)
         {
-            Task<GameSave> gameSaveTask = gameProxyRepository.NewSave(runName);
+            GameSave newSave = new GameSave(runName);
+            newSave.Id = new Random().Next();
+            Task<GameSave> gameSaveTask = gameProxyRepository.NewSave(newSave);
             GameSave gameSave = await gameSaveTask;
             game = new Game(gameSave);
         }
@@ -62,6 +64,10 @@ namespace All_Things_Evil.Services
 
         public Result DoMove(int damage, int block)
         {
+            if(damage < 0 || block < 0)
+            {
+                throw new Exception("Damage and block must be positive integers");
+            }
             if(damage + block > game.Player.Energy)
             {
                 throw new Exception("Player does not have enough energy to perform this move");

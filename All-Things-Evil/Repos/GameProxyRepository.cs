@@ -65,7 +65,7 @@ namespace All_Things_Evil.Repos
             }
         }
 
-        public async Task<GameSave> NewSave(string runName)
+        public async Task<GameSave> NewSave(GameSave runName)
         {
             var json = JsonSerializer.Serialize(runName);
             var data = new StringContent(json, Encoding.UTF8, "application/json");

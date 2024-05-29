@@ -46,5 +46,10 @@ namespace All_Things_Evil.Views
                 MessageBox.Show("Please enter valid numbers for damage and block.");
             }
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.SaveGameCommand.Execute(null);
+        }
     }
 }

@@ -10,7 +10,7 @@
         <!-- Background Image -->
         <Image Source="https://t4.ftcdn.net/jpg/06/34/46/15/240_F_634461501_60hsVi6ickrduHxCjV3KRApdH96UYhNg.jpg" Stretch="Fill" />
         <Image Source="../Resources/Images/main-fight-background.jpg" Stretch="Fill" />
-        
+
         <!-- Fighter 1 Energy Label -->
         <Label
             x:Name="energyLabelPlayer1"
@@ -21,7 +21,7 @@
             Margin="517,32,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top" />
-        
+
         <!-- Fighter 2 Energy Label -->
         <Label
             x:Name="energyLabelPlayer2"
@@ -119,6 +119,31 @@
                         BorderBrush="#FFA64942"
                         BorderThickness="1"
                         CornerRadius="20">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button
+        x:Name="saveButton"
+        Width="144"
+        Height="42"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Bottom"
+        Margin="617,0,0,60"
+        Content="Save Game"
+        FontFamily="Showcard Gothic"
+        FontSize="11"
+        Foreground="#FF301805"
+        Click="SaveButton_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                Background="#A64942"
+                BorderBrush="#FFA64942"
+                BorderThickness="1"
+                CornerRadius="20">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
