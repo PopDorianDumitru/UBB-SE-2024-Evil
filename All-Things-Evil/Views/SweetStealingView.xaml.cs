@@ -54,17 +54,5 @@ namespace All_Things_Evil.Views
             {
             }
         }
-
-        private void FightingGameButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var fightingGameWindow = sweetStealingViewModel.CreateFightingGameWindow();
-                MainContentControl.Content = fightingGameWindow;
-            }
-            catch (System.Exception exception)
-            {
-            }
-        }
     }
 }

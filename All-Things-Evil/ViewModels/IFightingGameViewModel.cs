@@ -10,6 +10,8 @@ namespace All_Things_Evil.ViewModels
         int Player1Damage { get; set; }
         int Player1Health { get; set; }
         int Player2Health { get; set; }
+        int Player1Energy { get; set; }
+        int Player2Energy { get; set; }
 
         event PropertyChangedEventHandler PropertyChanged;
     }

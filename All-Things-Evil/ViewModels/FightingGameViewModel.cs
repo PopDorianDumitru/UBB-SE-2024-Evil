@@ -4,17 +4,21 @@ using System.Windows;
 using System.Windows.Input;
 using All_Things_Evil.Services;
 using All_Things_Evil.Views.WindowFactory;
+using Humanizer;
+using UBB_SE_2024_Evil.Models.Spartacus;
 
 namespace All_Things_Evil.ViewModels
 {
     public class FightingGameViewModel : INotifyPropertyChanged, IFightingGameViewModel
     {
         private readonly IGameService _gameService;
-        private readonly IWindowFactory _windowFactory;
+        public IWindowFactory _windowFactory;
         private int _player1Health;
         private int _player2Health;
         private int _player1Damage;
         private int _player1Block;
+        private int _player1Energy;
+        private int _player2Energy;
 
         public int Player1Health
         {
@@ -56,6 +60,26 @@ namespace All_Things_Evil.ViewModels
             }
         }
 
+        public int Player1Energy
+        {
+            get => _player1Energy;
+            set
+            {
+                _player1Energy = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Player2Energy
+        {
+            get => _player2Energy;
+            set
+            {
+                _player2Energy = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand DoMoveCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -63,30 +87,43 @@ namespace All_Things_Evil.ViewModels
         public FightingGameViewModel(IGameService gameService, IWindowFactory windowFactory)
         {
             _gameService = gameService;
-            DoMoveCommand = new RelayCommand(DoMove);
+            DoMoveCommand = new RelayCommand(DoMove, CanDoMove);
             Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
             Player2Health = gameService.Game.Enemy.Health;
+            Player1Energy = gameService.Game.Player.Energy; 
+            Player2Energy = gameService.Game.Enemy.MaxEnergy;
             _windowFactory = windowFactory;
+
         }
 
         private void DoMove()
         {
-            var result = _gameService.DoMove(Player1Damage, Player1Block);
+            try { 
+                var result = _gameService.DoMove(Player1Damage, Player1Block);
             
-            Player2Health = _gameService.Game.Enemy.Health;
-            Player1Health = _gameService.Game.Player.Health;
-            if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
-            {
-                MessageBox.Show("You win this level!");
-                _gameService.MoveToNextLevel();
-                Player1Health = _gameService.Game.PlayerHealthAtStartOfLevel;
                 Player2Health = _gameService.Game.Enemy.Health;
+                Player1Health = _gameService.Game.Player.Health;
+                if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
+                {
+                    MessageBox.Show("You win!");
+                    _gameService.MoveToNextLevel();
+                    Player1Health = _gameService.Game.PlayerHealthAtStartOfLevel;
+                    Player2Health = _gameService.Game.Enemy.Health;
+                    Player1Energy = _gameService.Game.Player.Energy;
+                    Player2Energy = _gameService.Game.Enemy.MaxEnergy;
+                }
+                else if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
+                {
+                    MessageBox.Show("You lose!");
+                }
             }
-            else if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
+            catch (System.Exception e)
             {
-                MessageBox.Show("You lose!");
+                MessageBox.Show(e.Message);
             }
         }
+
+        private bool CanDoMove() => Player1Damage > 0 && Player1Block > 0;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
