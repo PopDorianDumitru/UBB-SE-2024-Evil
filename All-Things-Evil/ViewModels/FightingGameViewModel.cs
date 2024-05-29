@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using All_Things_Evil.Services;
 using All_Things_Evil.Views.WindowFactory;
+using UBB_SE_2024_Evil.Models.Spartacus;
 
 namespace All_Things_Evil.ViewModels
 {
