@@ -86,6 +86,7 @@ namespace All_Things_Evil.ViewModels
         }
 
         public ICommand DoMoveCommand { get; }
+        public ICommand SaveGameCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -93,22 +94,25 @@ namespace All_Things_Evil.ViewModels
         {
             _gameService = gameService;
             DoMoveCommand = new RelayCommand(DoMove, CanDoMove);
+            SaveGameCommand = new RelayCommand(SaveGame);
             Player1Health = gameService.Game.PlayerHealthAtStartOfLevel;
             Player2Health = gameService.Game.Enemy.Health;
-            Player1Energy = gameService.Game.Player.Energy; 
+            Player1Energy = gameService.Game.Player.Energy;
             Player2Energy = gameService.Game.Enemy.MaxEnergy;
             _windowFactory = windowFactory;
+            _gameService.StartNewGame("Test5");
 
         }
 
         private void DoMove()
         {
-            try { 
+            try
+            {
                 var result = _gameService.DoMove(Player1Damage, Player1Block);
-            
+
                 Player2Health = _gameService.Game.Enemy.Health;
                 Player1Health = _gameService.Game.Player.Health;
-                if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
+                if (result == UBB_SE_2024_Evil.Models.Spartacus.Result.WIN)
                 {
                     
                     OnDisplayWinWindow();
@@ -118,7 +122,7 @@ namespace All_Things_Evil.ViewModels
                     Player1Energy = _gameService.Game.Player.Energy;
                     Player2Energy = _gameService.Game.Enemy.MaxEnergy;
                 }
-                else if(result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
+                else if (result == UBB_SE_2024_Evil.Models.Spartacus.Result.LOSE)
                 {
                    OnDisplayLoseWindow();
                 }
@@ -129,7 +133,23 @@ namespace All_Things_Evil.ViewModels
             }
         }
 
-        private bool CanDoMove() => Player1Damage > 0 && Player1Block > 0;
+        private void SaveGame()
+        {
+            _gameService.SaveGame();
+        }
+
+        private bool CanDoMove()
+        {
+            if (Player1Damage + Player1Block > Player1Energy)
+            {
+                return false;
+            }
+            if (Player1Damage < 0 || Player1Block < 0)
+            {
+                return false;
+            }
+            return true;
+        }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

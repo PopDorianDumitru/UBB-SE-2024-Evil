@@ -87,5 +87,9 @@ namespace All_Things_Evil.Views
             }
         }
 
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.SaveGameCommand.Execute(null);
+        }
     }
 }

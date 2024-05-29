@@ -2,12 +2,14 @@
 {
     public class Player
     {
+        public int MaxHealth { get; set; }
         public int Health { get; set; }
         public int Block { get; set; }
         public int Energy { get; set; }
 
-        public Player(int health, int maxEnergy)
+        public Player(int maxHealth, int health, int maxEnergy)
         {
+            MaxHealth = maxHealth;
             Health = health;
             Block = 0;
             Energy = maxEnergy;

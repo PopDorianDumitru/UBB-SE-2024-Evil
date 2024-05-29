@@ -25,10 +25,10 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GameSave>>> GetGameSave()
         {
-          if (_context.GameSave == null)
-          {
-              return NotFound();
-          }
+            if (_context.GameSave == null)
+            {
+                return NotFound();
+            }
             return await _context.GameSave.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GameSave>> GetGameSave(int id)
         {
-          if (_context.GameSave == null)
-          {
-              return NotFound();
-          }
+            if (_context.GameSave == null)
+            {
+                return NotFound();
+            }
             var gameSave = await _context.GameSave.FindAsync(id);
 
             if (gameSave == null)
@@ -86,12 +86,13 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpPost]
         public async Task<ActionResult<GameSave>> PostGameSave(GameSave gameSave)
         {
-          if (_context.GameSave == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.GameSave'  is null.");
-          }
+            if (_context.GameSave == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.GameSave'  is null.");
+            }
             _context.GameSave.Add(gameSave);
             await _context.SaveChangesAsync();
+
 
             return CreatedAtAction("GetGameSave", new { id = gameSave.Id }, gameSave);
         }

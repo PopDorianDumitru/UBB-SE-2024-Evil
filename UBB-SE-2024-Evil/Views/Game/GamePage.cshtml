@@ -4,51 +4,22 @@
     ViewData["Title"] = "Fight";
 }
 
-<html>
-<head>
-    <script href="~/Scripts/Spartacus/GamePage.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="~/css/Spartacus/GamePage.css" />
-    <script src="~/js/Spartacus/GamePage.js"></script>
-    <script>
-        window.onload = () => {
-            var maxHealth = 200;
-            $('#player-health-bar').css('width', (@Model.Player.Health / maxHealth * 100) + '%');
-            $('#enemy-health-bar').css('width', (@Model.Enemy.Health / maxHealth * 100) + '%');
-        }
-    </script>
-</head>
+<link rel="stylesheet" type="text/css" href="~/css/Spartacus/GamePage.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/Spartacus/GamePage.js"></script>
 
-
-<body>
-    <div class="page">
-        <div class="players">
-            <div class="player2">
-                <div class="circle">
-                    <p>Energy: @Model.Player.Energy</p>
-                </div>
-                <div class="health-bar-container">
-                    <div class="health-bar" id="player-health-bar"></div>
-                </div>
-                <img class="fighter2" src="~/Resources/Spartacus/fighter2.png" />
-            </div>
-            <div class="player1">
-                <div class="circle">
-                    <p>Energy: @Model.Enemy.MaxEnergy</p>
-                </div>
-                <div class="health-bar-container">
-                    <div class="health-bar" id="enemy-health-bar"></div>
-                </div>
-                <img class="fighter1" src="~/Resources/Spartacus/fighter1.png"/>
-            </div>
-        </div>
+<div class="page">
+    <div id="playersContainer" class="players">
+        @Html.Partial("_GameScene", Model)
+    </div>
+    <div class="lower_layout">
         <div>
             <form id="moveForm" class="move">
-                <input class="move_inputs" id="inputDamage" type="number"/>
+                <input class="move_inputs" id="inputDamage" type="number" />
                 <div class="cylindrical-container">
                     <p><b>Damage</b></p>
                 </div>
-                <input class="move_inputs" id="inputBlock" type="number"/>
+                <input class="move_inputs" id="inputBlock" type="number" />
                 <div class="cylindrical-container">
                     <p><b>Block</b></p>
                 </div>
@@ -56,6 +27,6 @@
                 @* <button id="submitButton">Submit</button> *@
             </form>
         </div>
+        <button class="cylindrical-container" id="save_button"><b>Save Game</b></button>
     </div>
-</body>
-</html>
+</div>
