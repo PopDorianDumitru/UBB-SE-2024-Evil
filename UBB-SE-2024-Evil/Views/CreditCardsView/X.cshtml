@@ -5,8 +5,25 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/js/CreditCard/X.js"></script>
 
-<div class="container p-0">
-    <div class="card px-4">
+<style>
+    .checkout-container {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .checkout-logo {
+        width: 150px;
+        margin-right: 20px;
+    }
+
+    .checkout-card {
+        flex: 1;
+    }
+</style>
+
+<div class="container p-0 checkout-container">
+    <img src="~/images/x_logo.png" alt="X Logo" class="checkout-logo">
+    <div class="card px-4 checkout-card">
         <p class="h8 py-3">Payment Details</p>
         <div class="row gx-3">
             <div class="col-12">
