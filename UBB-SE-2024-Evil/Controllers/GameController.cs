@@ -121,7 +121,7 @@ namespace UBB_SE_2024_Evil.Controllers
             return RedirectToAction(nameof(GamePage));
         }
 
-        // POST: Game/SaveGame
+        // Patch: Game/SaveGame
         // Save game endpoint
         // Saves the current game state
         [HttpPatch]
