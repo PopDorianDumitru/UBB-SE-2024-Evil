@@ -4,7 +4,27 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/js/CreditCard/Subscription.js"></script>
+<link rel="stylesheet" href="~/css/CreditCard/Subscription.css" />
 
-<div>
-    
+<div class="card">
+    <h2>Payment Details</h2>
+    <div class="form-group">
+        <label for="personName">Person Name</label>
+        <input id="personName" class="form-control" type="text" placeholder="Name">
+    </div>
+    <div class="form-group">
+        <label for="cardNumber">Card Number</label>
+        <input id="cardNumber" class="form-control" type="text" placeholder="1234 5678 435678">
+    </div>
+    <div class="form-group">
+        <label for="expiry">Expiry</label>
+        <input id="expiry" class="form-control" type="text" placeholder="MM/YYYY">
+    </div>
+    <div class="form-group">
+        <label for="cvv">CVV/CVC</label>
+        <input id="cvv" class="form-control" type="password" placeholder="***">
+    </div>
+    <div class="form-group">
+        <button id="payButton" class="btn-primary">Pay $243</button>
+    </div>
 </div>

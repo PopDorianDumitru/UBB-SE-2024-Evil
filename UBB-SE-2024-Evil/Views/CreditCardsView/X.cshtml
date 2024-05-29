@@ -5,6 +5,57 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/js/CreditCard/X.js"></script>
 
+<style>
+    .checkout-container {
+        display: flex;
+        align-items: flex-start;
+    }
 
-<div>
+    .checkout-logo {
+        width: 150px;
+        margin-right: 20px;
+    }
+
+    .checkout-card {
+        flex: 1;
+    }
+</style>
+
+<div class="container p-0 checkout-container">
+    <img src="~/images/x_logo.png" alt="X Logo" class="checkout-logo">
+    <div class="card px-4 checkout-card">
+        <p class="h8 py-3">Payment Details</p>
+        <div class="row gx-3">
+            <div class="col-12">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Person Name</p>
+                    <input id="personName" class="form-control mb-3" type="text" placeholder="Name">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Card Number</p>
+                    <input id="cardNumber" class="form-control mb-3" type="text" placeholder="1234 5678 435678">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">Expiry</p>
+                    <input id="expiry" class="form-control mb-3" type="text" placeholder="MM/YYYY">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="d-flex flex-column">
+                    <p class="text mb-1">CVV/CVC</p>
+                    <input id="cvv" class="form-control mb-3 pt-2" type="password" placeholder="***">
+                </div>
+            </div>
+            <div class="col-12">
+                <div id="payButton" class="btn btn-primary mb-3">
+                    <span class="ps-3">Pay $243</span>
+                    <span class="fas fa-arrow-right"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
