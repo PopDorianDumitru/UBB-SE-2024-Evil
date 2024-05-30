@@ -24,7 +24,7 @@ namespace All_Things_Evil.Repos
 
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.PostAsync(SERVER_URL + "/api/CreditCards", data);
+                HttpResponseMessage response = await client.PostAsync(SERVER_URL + "/api/CreditCards/", data);
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception("Error: " + response.ReasonPhrase);
