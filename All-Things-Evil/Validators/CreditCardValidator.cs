@@ -30,7 +30,7 @@ namespace All_Things_Evil.Validators
 
             var successfullyParsedMonth = int.TryParse(dateComponent[0], out month);
             var successfullyParsedYear = int.TryParse(dateComponent[1], out year);
-            return successfullyParsedMonth && successfullyParsedYear && dateComponent[0].Length == 2 && dateComponent[1].Length == 2 && month <= 12 && year >= 25;
+            return successfullyParsedMonth && successfullyParsedYear && dateComponent[0].Length == 2 && dateComponent[1].Length == 4 && month <= 12 && year >= 25;
         }
         public bool ValidCreditCardNumber(string creditCardNumber)
         {
