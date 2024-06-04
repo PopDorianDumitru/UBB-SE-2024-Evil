@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using UBB_SE_2024_Evil.Data;
 using UBB_SE_2024_Evil.Models;
 
 namespace UBB_SE_2024_Evil.Controllers
@@ -13,25 +14,25 @@ namespace UBB_SE_2024_Evil.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly DiversityMarketplaceContext _context;
+        private readonly ApplicationDbContext dbContext;
 
-        public UsersController(DiversityMarketplaceContext context)
+        public UsersController(ApplicationDbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
 
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await dbContext.UsersFromAuction.ToListAsync();
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await dbContext.UsersFromAuction.FindAsync(id);
 
             if (user == null)
             {
@@ -51,11 +52,11 @@ namespace UBB_SE_2024_Evil.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            dbContext.Entry(user).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,8 +78,8 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            dbContext.UsersFromAuction.Add(user);
+            await dbContext.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.UserID }, user);
         }
@@ -87,21 +88,21 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await dbContext.UsersFromAuction.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            dbContext.UsersFromAuction.Remove(user);
+            await dbContext.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.UserID == id);
+            return dbContext.UsersFromAuction.Any(e => e.UserID == id);
         }
     }
 }

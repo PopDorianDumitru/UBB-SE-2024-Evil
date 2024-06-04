@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using UBB_SE_2024_Evil.Data;
 using UBB_SE_2024_Evil.Models;
 
 namespace UBB_SE_2024_Evil.Controllers
@@ -13,25 +14,25 @@ namespace UBB_SE_2024_Evil.Controllers
     [ApiController]
     public class AuctionsController : ControllerBase
     {
-        private readonly DiversityMarketplaceContext _context;
+        private readonly ApplicationDbContext dbContext;
 
-        public AuctionsController(DiversityMarketplaceContext context)
+        public AuctionsController(ApplicationDbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
 
         // GET: api/Auctions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Auction>>> GetAuctions()
         {
-            return await _context.Auctions.ToListAsync();
+            return await dbContext.Auctions.ToListAsync();
         }
 
         // GET: api/Auctions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Auction>> GetAuction(int id)
         {
-            var auction = await _context.Auctions.FindAsync(id);
+            var auction = await dbContext.Auctions.FindAsync(id);
 
             if (auction == null)
             {
@@ -51,11 +52,11 @@ namespace UBB_SE_2024_Evil.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(auction).State = EntityState.Modified;
+            dbContext.Entry(auction).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,8 +78,8 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpPost]
         public async Task<ActionResult<Auction>> PostAuction(Auction auction)
         {
-            _context.Auctions.Add(auction);
-            await _context.SaveChangesAsync();
+            dbContext.Auctions.Add(auction);
+            await dbContext.SaveChangesAsync();
 
             return CreatedAtAction("GetAuction", new { id = auction.AuctionID }, auction);
         }
@@ -87,21 +88,21 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAuction(int id)
         {
-            var auction = await _context.Auctions.FindAsync(id);
+            var auction = await dbContext.Auctions.FindAsync(id);
             if (auction == null)
             {
                 return NotFound();
             }
 
-            _context.Auctions.Remove(auction);
-            await _context.SaveChangesAsync();
+            dbContext.Auctions.Remove(auction);
+            await dbContext.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool AuctionExists(int id)
         {
-            return _context.Auctions.Any(e => e.AuctionID == id);
+            return dbContext.Auctions.Any(e => e.AuctionID == id);
         }
     }
 }

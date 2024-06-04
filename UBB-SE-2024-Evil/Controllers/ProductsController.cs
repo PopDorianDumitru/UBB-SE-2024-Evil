@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using UBB_SE_2024_Evil.Data;
 using UBB_SE_2024_Evil.Models;
 
 namespace UBB_SE_2024_Evil.Controllers
@@ -13,25 +14,25 @@ namespace UBB_SE_2024_Evil.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly DiversityMarketplaceContext _context;
+        private readonly ApplicationDbContext dbContext;
 
-        public ProductsController(DiversityMarketplaceContext context)
+        public ProductsController(ApplicationDbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
 
         // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            return await dbContext.Products.ToListAsync();
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await dbContext.Products.FindAsync(id);
 
             if (product == null)
             {
@@ -51,11 +52,11 @@ namespace UBB_SE_2024_Evil.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            dbContext.Entry(product).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,8 +78,8 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+            dbContext.Products.Add(product);
+            await dbContext.SaveChangesAsync();
 
             return CreatedAtAction("GetProduct", new { id = product.ProductID }, product);
         }
@@ -87,21 +88,21 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await dbContext.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            dbContext.Products.Remove(product);
+            await dbContext.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool ProductExists(int id)
         {
-            return _context.Products.Any(e => e.ProductID == id);
+            return dbContext.Products.Any(e => e.ProductID == id);
         }
     }
 }

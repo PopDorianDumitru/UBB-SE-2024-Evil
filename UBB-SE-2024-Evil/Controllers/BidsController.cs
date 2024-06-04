@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using UBB_SE_2024_Evil.Data;
 using UBB_SE_2024_Evil.Models;
 
 namespace UBB_SE_2024_Evil.Controllers
@@ -13,25 +14,25 @@ namespace UBB_SE_2024_Evil.Controllers
     [ApiController]
     public class BidsController : ControllerBase
     {
-        private readonly DiversityMarketplaceContext _context;
+        private readonly ApplicationDbContext dbContext;
 
-        public BidsController(DiversityMarketplaceContext context)
+        public BidsController(ApplicationDbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
 
         // GET: api/Bids
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bid>>> GetBids()
         {
-            return await _context.Bids.ToListAsync();
+            return await dbContext.Bids.ToListAsync();
         }
 
         // GET: api/Bids/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Bid>> GetBid(int id)
         {
-            var bid = await _context.Bids.FindAsync(id);
+            var bid = await dbContext.Bids.FindAsync(id);
 
             if (bid == null)
             {
@@ -51,11 +52,11 @@ namespace UBB_SE_2024_Evil.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(bid).State = EntityState.Modified;
+            dbContext.Entry(bid).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,8 +78,8 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpPost]
         public async Task<ActionResult<Bid>> PostBid(Bid bid)
         {
-            _context.Bids.Add(bid);
-            await _context.SaveChangesAsync();
+            dbContext.Bids.Add(bid);
+            await dbContext.SaveChangesAsync();
 
             return CreatedAtAction("GetBid", new { id = bid.BidId }, bid);
         }
@@ -87,21 +88,21 @@ namespace UBB_SE_2024_Evil.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBid(int id)
         {
-            var bid = await _context.Bids.FindAsync(id);
+            var bid = await dbContext.Bids.FindAsync(id);
             if (bid == null)
             {
                 return NotFound();
             }
 
-            _context.Bids.Remove(bid);
-            await _context.SaveChangesAsync();
+            dbContext.Bids.Remove(bid);
+            await dbContext.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool BidExists(int id)
         {
-            return _context.Bids.Any(e => e.BidId == id);
+            return dbContext.Bids.Any(e => e.BidId == id);
         }
     }
 }
