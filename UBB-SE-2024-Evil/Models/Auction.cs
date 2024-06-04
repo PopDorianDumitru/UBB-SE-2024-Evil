@@ -8,7 +8,7 @@ namespace UBB_SE_2024_Evil.Models
         public string AuctionDescription { get; set; }
         public string AuctionName { get; set; }
         public float CurrentMaxSum { get; set; }
-        DateTime DateOfStart { get; set; }
+        public DateTime DateOfStart { get; set; }
         public List<User> Users { get; set; }
         public List<Bid> Bids { get; set; }
     }
