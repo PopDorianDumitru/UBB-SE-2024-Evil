@@ -39,5 +39,9 @@ namespace UBB_SE_2024_Evil.Data
 
         public DbSet<UBB_SE_2024_Evil.Models.CreditCard> CreditCard { get; set; } = default!;
         public DbSet<UBB_SE_2024_Evil.Models.Spartacus.GameSave> GameSave { get; set; } = default!;
+        public DbSet<User> UsersFromAuction { get; set; }
+        public DbSet<Bid> Bids { get; set; }
+        public DbSet<Auction> Auctions { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }
