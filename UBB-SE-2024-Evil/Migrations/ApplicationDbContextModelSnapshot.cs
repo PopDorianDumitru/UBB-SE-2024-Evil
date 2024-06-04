@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UBB_SE_2024_Evil.Data;
 
 #nullable disable
 
-namespace UBB_SE_2024_Evil.Data.Migrations
+namespace UBB_SE_2024_Evil.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240526164014_Migration2")]
-    partial class Migration2
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +21,21 @@ namespace UBB_SE_2024_Evil.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AuctionUser", b =>
+                {
+                    b.Property<int>("AuctionsAuctionID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersUserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuctionsAuctionID", "UsersUserID");
+
+                    b.HasIndex("UsersUserID");
+
+                    b.ToTable("AuctionUser");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -227,6 +239,62 @@ namespace UBB_SE_2024_Evil.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("UBB_SE_2024_Evil.Models.Auction", b =>
+                {
+                    b.Property<int>("AuctionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuctionID"));
+
+                    b.Property<string>("AuctionDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AuctionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("CurrentMaxSum")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("DateOfStart")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("AuctionID");
+
+                    b.ToTable("Auctions");
+                });
+
+            modelBuilder.Entity("UBB_SE_2024_Evil.Models.Bid", b =>
+                {
+                    b.Property<int>("BidId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BidId"));
+
+                    b.Property<int>("AuctionID")
+                        .HasColumnType("int");
+
+                    b.Property<float>("BidSum")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("TimeOfBid")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.HasKey("BidId");
+
+                    b.HasIndex("AuctionID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Bids");
+                });
+
             modelBuilder.Entity("UBB_SE_2024_Evil.Models.CreditCard", b =>
                 {
                     b.Property<int>("Id")
@@ -256,26 +324,62 @@ namespace UBB_SE_2024_Evil.Data.Migrations
                     b.ToTable("CreditCard");
                 });
 
+            modelBuilder.Entity("UBB_SE_2024_Evil.Models.Product", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProductDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductID");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("UBB_SE_2024_Evil.Models.Spartacus.GameSave", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("Relational:JsonPropertyName", "id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Level")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("Relational:JsonPropertyName", "level");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasAnnotation("Relational:JsonPropertyName", "name");
 
                     b.Property<int>("PlayerEnergy")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("Relational:JsonPropertyName", "playerEnergy");
 
                     b.Property<int>("PlayerHealth")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("Relational:JsonPropertyName", "playerHealth");
 
                     b.HasKey("Id");
 
@@ -283,6 +387,50 @@ namespace UBB_SE_2024_Evil.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("GameSave");
+                });
+
+            modelBuilder.Entity("UBB_SE_2024_Evil.Models.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("UsersFromAuction");
+                });
+
+            modelBuilder.Entity("AuctionUser", b =>
+                {
+                    b.HasOne("UBB_SE_2024_Evil.Models.Auction", null)
+                        .WithMany()
+                        .HasForeignKey("AuctionsAuctionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UBB_SE_2024_Evil.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersUserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -334,6 +482,35 @@ namespace UBB_SE_2024_Evil.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UBB_SE_2024_Evil.Models.Bid", b =>
+                {
+                    b.HasOne("UBB_SE_2024_Evil.Models.Auction", "Auction")
+                        .WithMany("Bids")
+                        .HasForeignKey("AuctionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UBB_SE_2024_Evil.Models.User", "User")
+                        .WithMany("Bids")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Auction");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UBB_SE_2024_Evil.Models.Auction", b =>
+                {
+                    b.Navigation("Bids");
+                });
+
+            modelBuilder.Entity("UBB_SE_2024_Evil.Models.User", b =>
+                {
+                    b.Navigation("Bids");
                 });
 #pragma warning restore 612, 618
         }
